@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+<h2> Finish up your profile! </h2>
+<p>Use this calculator to determine your needed macros. You can always change them later or use the calculator again!</p>
+
+    <form action="{% url 'account creation page' %}" method="POST">
+        {{ form.as_p }}
+        <button>Calculate</button>
+        {% csrf_token %}
+    </form>
+
+{% endblock %}

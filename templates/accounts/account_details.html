@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block main_content %}
+    <h1>Profile details: </h1>
+    <div id="profile-details">
+        <p><strong>Name: {{ request.user.username }}</strong> <span id="name"></span></p>
+        <p><strong>Height: {{ account.height }}cm:</strong> <span id="height"></span></p>
+        <p><strong>Weight: {{ account.weight }}kg:</strong> <span id="weight"></span></p>
+        <p><strong>Gender: {{ account.gender }}</strong> <span id="gender"></span></p>
+        <p><strong>Activity Level: {{ account.activity }}</strong> <span id="activity-level"></span></p>
+        <p><strong>Goals: {{ account.goal }}</strong> <span id="goals"></span></p>
+    </div>
+
+    <a href="{% url 'account edit page'%}">
+    <button>Edit profile</button>
+    </a>
+
+    <h2>Daily macros:</h2>
+    <div>
+        <p>Calories : {{ account.calories }}</p>
+        <p>Proteins: {{ account.protein }}</p>
+        <p>Carbohydrates: {{ account.carbs  }}</p>
+        <p>Fats: {{ account.fats }}</p>
+
+    </div>
+    <p>If you don't like your macros you can change them <a href="{% url 'account macros edit page' %}">here</a></p>
+
+{% endblock %}

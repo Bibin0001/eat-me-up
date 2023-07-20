@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block main_content %}
+    <form action="{% url 'log out page' %}" method="POST">
+
+        <button>Log Out</button>
+        <a href="{% url 'home page' %}">Nope</a>
+        {% csrf_token %}
+    </form>
+{% endblock %}

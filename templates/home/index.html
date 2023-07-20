@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    {% if request.user.is_authenticated %}
+        {% include 'home/home_with_profile.html' %}
+    {% else %}
+        {% include 'home/home_without_profile.html' %}
+    {% endif %}
+{% endblock %}

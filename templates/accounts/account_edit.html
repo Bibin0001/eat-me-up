@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+
+    <h1>Edit your profile! </h1>
+
+    <p>This will change your macros as well!</p>
+    <form action="{% url 'account edit page' %}" method="POST">
+        {{ form.as_p }}
+        <button>Edit profile</button>
+
+        {% csrf_token %}
+    </form>
+{% endblock %}

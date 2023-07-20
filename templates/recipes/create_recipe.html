@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    <!-- create_recipe.html -->
+    <h1>Have to mak</h1>
+    <!-- create_recipe.html -->
+    <form id="recipe-form" method="POST">
+        {% csrf_token %}
+        {{ form.as_table }} <!-- Render recipe form fields as a table -->
+
+        <fieldset id="ingredients-fieldset">
+            <legend>Ingredients</legend>
+            {{ formset.management_form}}
+            <div id="formset-rows">
+                {% for form in formset %}
+                    <div class="formset-row" data-selset style="display: none">
+                        {{ form.as_div}}
+                    </div>
+                {% endfor %}
+            </div>
+            <button type="button" id="add-formset-row">Add Ingredient</button>
+        </fieldset>
+
+        <!-- Display recipe macros -->
+        <h3>Recipe Macros:</h3>
+        <p>Total Calories: <span id="total-calories">0</span></p>
+        <p>Total Proteins: <span id="total-proteins">0</span></p>
+        <p>Total Fats: <span id="total-fats">0</span></p>
+        <p>Total Carbs: <span id="total-carbs">0</span></p>
+
+        <button type="submit">Save</button>
+    </form>
+    <script>
+        var attributes = {
+
+        {% for ingredient in ingredients %}
+            {{ ingredient.pk }}: {
+            calories:{{ ingredient.calories_per_gram }},
+            proteins:{{ ingredient.proteins_per_gram }},
+            fats:{{ ingredient.fats_per_gram }},
+            carbs:{{ ingredient.carbs_per_gram }}
+                },
+        {% endfor %}
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            var searchInput = $('#search-input');
+            var selectMenu = $('#select-menu');
+
+            // Function to filter the options based on search query
+            function filterOptions() {
+                var searchQuery = searchInput.val().toLowerCase();
+                selectMenu.find('option').each(function () {
+                    var optionText = $(this).text().toLowerCase();
+                    var isVisible = optionText.indexOf(searchQuery) > -1;
+                    $(this).toggle(isVisible);
+                });
+            }
+
+            // Event listener for search input changes
+            searchInput.on('input', filterOptions);
+        });
+
+        $(document).ready(function () {
+            $('[data-selset]').first().fadeIn(0)
+            var formsetRowsContainer = $('#formset-rows');
+            var addButton = $('#add-formset-row');
+
+            addButton.click(function () {
+
+                $("[data-selset]:hidden:first").show();
+
+            });
+
+            document.addEventListener('change', onChange);
+
+            function onChange(e) {
+                if (e.target.attributes.dataChange) {
+                    var selects = $('[dataChange="updateRecipeMacros"]')
+                    var total_calories = 0
+                    var total_proteins = 0
+                    var total_fats = 0
+                    var total_carbs = 0
+
+                    var quantity = 0
+
+
+                    for (var i = 0; i < selects.length; i++) {
+                        var id = $(selects[i]).val()
+                        var element = attributes[id];
+
+                        if(element) {
+                            total_calories += element.calories
+                            total_proteins += element.proteins
+                            total_fats += element.fats
+                            total_carbs += element.carbs
+                        }
+
+                    }
+                    $('#total-calories').text(total_calories)
+                    $('#total-proteins').text(total_proteins)
+                    $('#total-fats').text(total_fats)
+                    $('#total-carbs').text(total_carbs)
+
+
+                }
+
+
+            }
+
+
+            // Update recipe macros when ingredient form fields change
+            formsetRowsContainer.on('input', '.ingredient-field', function () {
+                updateRecipeMacros();
+            });
+
+            // Function to update recipe macros
+
+        });
+
+        function updateRecipeMacros() {
+            var ingredientForms = $('.formset-row');
+            var totalCalories = 0;
+            var totalProteins = 0;
+            var totalFats = 0;
+            var totalCarbs = 0;
+
+            ingredientForms.each(function () {
+                var quantity = parseFloat($(this).find('.quantity-input').val());
+                var caloriesPerGram = parseFloat($(this).find('.calories-input').val());
+                var proteinsPerGram = parseFloat($(this).find('.proteins-input').val());
+                var fatsPerGram = parseFloat($(this).find('.fats-input').val());
+                var carbsPerGram = parseFloat($(this).find('.carbs-input').val());
+
+
+                var ingredientCalories = quantity * caloriesPerGram;
+                var ingredientProteins = quantity * proteinsPerGram;
+                var ingredientFats = quantity * fatsPerGram;
+                var ingredientCarbs = quantity * carbsPerGram;
+
+                totalCalories += ingredientCalories;
+                totalProteins += ingredientProteins;
+                totalFats += ingredientFats;
+                totalCarbs += ingredientCarbs;
+            });
+
+            {#$('#total-calories').text(totalCalories.toFixed(2));#}
+            {#$('#total-proteins').text(totalProteins.toFixed(2));#}
+            {#$('#total-fats').text(totalFats.toFixed(2));#}
+            {#$('#total-carbs').text(totalCarbs.toFixed(2));#}
+        }
+    </script>
+
+
+{% endblock %}
