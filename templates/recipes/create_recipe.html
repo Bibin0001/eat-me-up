@@ -58,21 +58,7 @@
     <script>
 
         $(document).ready(function () {
-            var searchInput = $('#search-input');
-            var selectMenu = $('#select-menu');
 
-            // Function to filter the options based on search query
-            function filterOptions() {
-                var searchQuery = searchInput.val().toLowerCase();
-                selectMenu.find('option').each(function () {
-                    var optionText = $(this).text().toLowerCase();
-                    var isVisible = optionText.indexOf(searchQuery) > -1;
-                    $(this).toggle(isVisible);
-                });
-            }
-
-            // Event listener for search input changes
-            searchInput.on('input', filterOptions);
 
             $('[data-selset]').first().fadeIn(0)
             var formsetRowsContainer = $('#formset-rows');
