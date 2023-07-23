@@ -1,16 +1,7 @@
 from django.contrib.auth.models import User
 from django.db import models
 
-
-class Ingredient(models.Model):
-    name = models.CharField(max_length=100)
-    calories_per_gram = models.FloatField()
-    proteins_per_gram = models.FloatField()
-    carbs_per_gram = models.FloatField()
-    fats_per_gram = models.FloatField()
-
-    def __str__(self):
-        return f"{self.name}"
+from ingredients.models import Ingredient
 
 
 # Create your models here.
@@ -22,10 +13,12 @@ class Recipe(models.Model):
 
     instruction = models.TextField(max_length=300, null=True, blank=True)
 
-    calories = models.FloatField()
-    proteins = models.FloatField()
-    carbs = models.FloatField()
-    fats = models.FloatField()
+    calories = models.FloatField(null=True, blank=True)
+    proteins = models.FloatField(null=True, blank=True)
+    carbs = models.FloatField(null=True, blank=True)
+    fats = models.FloatField(null=True, blank=True)
+
+    share = models.BooleanField(default=False)
 
     def calculate_macros(self):
         calories = 0
@@ -33,13 +26,12 @@ class Recipe(models.Model):
         carbs = 0
         fats = 0
 
-        for recipe_ingredient in self.ingredients.all():
+        for recipe_ingredient in self.recipeingredient_set.all():
             ingredient = recipe_ingredient.ingredient
-
             quantity = recipe_ingredient.quantity
-            measuring_type = recipe_ingredient.measuring_type
+            measurements = recipe_ingredient.measurements
 
-            if measuring_type == 'kilograms':
+            if measurements == 'kilograms':
                 quantity = quantity * 1000
 
             calories += ingredient.calories_per_gram * quantity
@@ -54,7 +46,7 @@ class Recipe(models.Model):
 
         self.save()
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.title}"
@@ -62,8 +54,8 @@ class Recipe(models.Model):
 
 class RecipeIngredient(models.Model):
     MEASURING_TYPES = [
-        ('grams', 'grams'),
-        ('kilograms', 'kilograms')
+        ('1', 'grams'),
+        ('1000', 'kilograms')
     ]
 
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)

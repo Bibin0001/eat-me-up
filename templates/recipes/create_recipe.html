@@ -10,11 +10,18 @@
 
         <fieldset id="ingredients-fieldset">
             <legend>Ingredients</legend>
-            {{ formset.management_form}}
+            {{ formset.management_form }}
             <div id="formset-rows">
                 {% for form in formset %}
-                    <div class="formset-row" data-selset style="display: none">
-                        {{ form.as_div}}
+                    <div class="formset-row base_element" data-selset style="display: none">
+                        <div
+                                onclick="resetSelect(this)"
+                                style="background: red; border: solid; padding: 10px; width: 50px; cursor: pointer; font-size: 20px; text-align: center;">
+
+                            <p id="buttonreset_0">remove</p>
+                        </div>
+                        {{ form.as_div }}
+
                     </div>
                 {% endfor %}
             </div>
@@ -35,7 +42,10 @@
 
         {% for ingredient in ingredients %}
             {{ ingredient.pk }}: {
-            calories:{{ ingredient.calories_per_gram }},
+            name:"{{ ingredient.name}}",
+
+                calories
+        :{{ ingredient.calories_per_gram }},
             proteins:{{ ingredient.proteins_per_gram }},
             fats:{{ ingredient.fats_per_gram }},
             carbs:{{ ingredient.carbs_per_gram }}
@@ -46,8 +56,8 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
 
+        $(document).ready(function () {
             var searchInput = $('#search-input');
             var selectMenu = $('#select-menu');
 
@@ -63,9 +73,7 @@
 
             // Event listener for search input changes
             searchInput.on('input', filterOptions);
-        });
 
-        $(document).ready(function () {
             $('[data-selset]').first().fadeIn(0)
             var formsetRowsContainer = $('#formset-rows');
             var addButton = $('#add-formset-row');
@@ -77,82 +85,90 @@
             });
 
             document.addEventListener('change', onChange);
-
-            function onChange(e) {
-                if (e.target.attributes.dataChange) {
-                    var selects = $('[dataChange="updateRecipeMacros"]')
-                    var total_calories = 0
-                    var total_proteins = 0
-                    var total_fats = 0
-                    var total_carbs = 0
-
-                    var quantity = 0
+            calculate()
 
 
-                    for (var i = 0; i < selects.length; i++) {
-                        var id = $(selects[i]).val()
-                        var element = attributes[id];
+        });//end document ready
 
-                        if(element) {
-                            total_calories += element.calories
-                            total_proteins += element.proteins
-                            total_fats += element.fats
-                            total_carbs += element.carbs
-                        }
-
-                    }
-                    $('#total-calories').text(total_calories)
-                    $('#total-proteins').text(total_proteins)
-                    $('#total-fats').text(total_fats)
-                    $('#total-carbs').text(total_carbs)
+        function onChange(e) {
+            if (e.target.attributes.dataChange) {
+                calculate()
+            }
+        }
 
 
+        function resetSelect(target) {
+            var parent = $(target).parent().children()
+
+
+            var ingredient = parent[1].children[1]
+            var quantity = parent[2].children[1]
+            var measurements = parent[3].children[1]
+            var element = attributes[ingredient.value];
+
+
+            $(ingredient).prop("selectedIndex", 0)
+            $(quantity).val('')
+            $(measurements).prop("selectedIndex", 0)
+            $(target).parent().fadeOut()
+            calculate()
+        }
+
+        function calculate() {
+            var elements = $('.base_element')
+
+            var total_calories = 0
+            var total_proteins = 0
+            var total_fats = 0
+            var total_carbs = 0
+
+            for (var i=0; i<elements.length; i++) {
+                var element = elements[i]
+                var selects = $(element).find('select')
+
+                var inputValue = parseInt($(element).find('input').val())
+                if (isNaN(inputValue)) {
+                    inputValue = 0
                 }
+                var select2Value = parseInt($(selects[1]).val())
+                if (isNaN(select2Value)) {
+                    select2Value = 0
+                }
+
+                var calories = 0
+                var proteins = 0
+                var carbs = 0
+                var fats = 0
+
+                var select1Id = parseFloat($(selects[0]).val())
+                var attribut = attributes[select1Id];
+                if (attribut) {
+                    calories = parseFloat(attribut.calories)
+                    proteins = parseFloat(attribut.proteins)
+                    carbs = parseFloat(attribut.carbs)
+                    fats = parseFloat(attribut.fats)
+                }
+
+                var localTotalCalories = calories * inputValue * select2Value
+                total_calories += localTotalCalories
+
+                var localTotalProteins = proteins * inputValue * select2Value
+                total_proteins += localTotalProteins
+
+                var localTotalCarbs = carbs * inputValue * select2Value
+                total_carbs += localTotalCarbs
+
+                var localTotalFats = fats * inputValue * select2Value
+                total_fats += localTotalFats
 
 
             }
-
-
-            // Update recipe macros when ingredient form fields change
-            formsetRowsContainer.on('input', '.ingredient-field', function () {
-                updateRecipeMacros();
-            });
-
-            // Function to update recipe macros
-
-        });
-
-        function updateRecipeMacros() {
-            var ingredientForms = $('.formset-row');
-            var totalCalories = 0;
-            var totalProteins = 0;
-            var totalFats = 0;
-            var totalCarbs = 0;
-
-            ingredientForms.each(function () {
-                var quantity = parseFloat($(this).find('.quantity-input').val());
-                var caloriesPerGram = parseFloat($(this).find('.calories-input').val());
-                var proteinsPerGram = parseFloat($(this).find('.proteins-input').val());
-                var fatsPerGram = parseFloat($(this).find('.fats-input').val());
-                var carbsPerGram = parseFloat($(this).find('.carbs-input').val());
-
-
-                var ingredientCalories = quantity * caloriesPerGram;
-                var ingredientProteins = quantity * proteinsPerGram;
-                var ingredientFats = quantity * fatsPerGram;
-                var ingredientCarbs = quantity * carbsPerGram;
-
-                totalCalories += ingredientCalories;
-                totalProteins += ingredientProteins;
-                totalFats += ingredientFats;
-                totalCarbs += ingredientCarbs;
-            });
-
-            {#$('#total-calories').text(totalCalories.toFixed(2));#}
-            {#$('#total-proteins').text(totalProteins.toFixed(2));#}
-            {#$('#total-fats').text(totalFats.toFixed(2));#}
-            {#$('#total-carbs').text(totalCarbs.toFixed(2));#}
+            $('#total-calories').text(total_calories);
+            $('#total-proteins').text(total_proteins);
+            $('#total-fats').text(total_fats);
+            $('#total-carbs').text(total_carbs);
         }
+
     </script>
 
 
