@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
 from django.db.models import Q
 from django.forms import formset_factory
 from django.shortcuts import render, redirect, get_object_or_404
@@ -81,8 +82,16 @@ def edit_recipe(request, pk):
         formset = RecipeIngredientFormSet(request.POST, prefix='ingredient', queryset=recipe.recipeingredient_set.all())
 
         if form.is_valid() and formset.is_valid():
-            form.save()
-            return redirect('show recipes page')
+            with transaction.atomic():
+                recipe = form.save()
+                instances = formset.save(commit=False)
+
+                for instance in instances:
+                    instance.recipe = recipe
+                    instance.save()
+
+        return redirect('show recipes page')
+
 
     else:
         form = RecipeForm(instance=recipe)
@@ -93,6 +102,5 @@ def edit_recipe(request, pk):
         'formset': formset,
         'ingredients': Ingredient.objects.filter(Q(user=request.user) | Q(user=None)).all()
     }
-
 
     return render(request, 'recipes/edit_recipe.html', context=context)
