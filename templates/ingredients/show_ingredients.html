@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    {% for ingredient in ingredients %}
+        <div>
+            <p>Ingredient: {{ ingredient.name }}</p>
+            <a href="{% url 'edit ingredient page' pk=ingredient.pk %}">Edit ingredient</a>
+
+        </div>
+    {% endfor %}
+
+{% endblock %}

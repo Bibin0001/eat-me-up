@@ -61,4 +61,4 @@ class RecipeIngredient(models.Model):
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-    measurements = models.CharField(max_length=20, choices=MEASURING_TYPES)
+    measurements = models.CharField(max_length=21, choices=MEASURING_TYPES)

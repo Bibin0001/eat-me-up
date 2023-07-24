@@ -1,20 +1,32 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.forms import formset_factory
-from django.shortcuts import render, redirect
-from django.views.generic import CreateView
+from django.shortcuts import render, redirect, get_object_or_404
+from django.views.generic import ListView
 from django.forms.models import modelformset_factory
 from .form import RecipeForm, RecipeIngredientForm
 from .models import Recipe, RecipeIngredient
 from ingredients.models import Ingredient
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 # Create your views here.
 def index(request):
     return render(request, 'recipes/index.html')
 
 
+class ShowRecipes(ListView, LoginRequiredMixin):
+    model = Recipe
+    template_name = 'recipes/show_recipes.html'
+    context_object_name = 'recipes'
+
+    def get_queryset(self):
+        return Recipe.objects.filter(user=self.request.user)
+
+
 @login_required
 def create_recipe(request):
-    RecipeIngredientFormSet = formset_factory(RecipeIngredientForm, extra=3)
+    RecipeIngredientFormSet = formset_factory(RecipeIngredientForm, extra=30)
 
     if request.method == 'POST':
         form = RecipeForm(request.POST)
@@ -43,8 +55,6 @@ def create_recipe(request):
 
             recipe.calculate_macros()
 
-
-
             return redirect('recipes index page')
 
     else:
@@ -54,45 +64,35 @@ def create_recipe(request):
     context = {
         'form': form,
         'formset': formset,
-        'ingredients': Ingredient.objects.all()
+        'ingredients': Ingredient.objects.filter(Q(user=request.user) | Q(user=None)).all()
     }
 
     return render(request, 'recipes/create_recipe.html', context)
 
-class RecipeCreateView(CreateView):
-    model = Recipe
-    form_class = RecipeForm
-    template_name = 'recipes/create_recipe.html'
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+@login_required
+def edit_recipe(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+    RecipeIngredientFormSet = modelformset_factory(RecipeIngredient, RecipeIngredientForm, extra=3,
+                                                   fields=['ingredient', 'quantity', 'measurements'])
 
-        RecipeIngredientFormset = modelformset_factory(
-            RecipeIngredient,
-            form=RecipeIngredientForm,
-            extra=1,
-            can_delete=True
-        )
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, instance=recipe)
+        formset = RecipeIngredientFormSet(request.POST, prefix='ingredient', queryset=recipe.recipeingredient_set.all())
 
-        if self.request.POST:
-            context['formset'] = RecipeIngredientFormset(self.request.POST, prefix='ingredient')
-        else:
-            context['formset'] = RecipeIngredientFormset(prefix='ingredient')
+        if form.is_valid() and formset.is_valid():
+            form.save()
+            return redirect('show recipes page')
 
-        return context
+    else:
+        form = RecipeForm(instance=recipe)
+        formset = RecipeIngredientFormSet(prefix='ingredient', queryset=recipe.recipeingredient_set.all(), )
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        formset = context['formset']
+    context = {
+        'form': form,
+        'formset': formset,
+        'ingredients': Ingredient.objects.filter(Q(user=request.user) | Q(user=None)).all()
+    }
 
-        if formset.is_valid():
-            self.object = form.save()
 
-            instances = formset.save(commit=False)
-            for instance in instances:
-                instance.recipe = self.object
-                instance.save()
-
-            return redirect('home page')
-
-        return self.render_to_response(self.get_context_data(form=form))
+    return render(request, 'recipes/edit_recipe.html', context=context)

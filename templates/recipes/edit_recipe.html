@@ -1,13 +1,8 @@
 {% extends 'base.html' %}
-
 {% block main_content %}
-    <!-- create_recipe.html -->
-    <h1>Have to mak</h1>
-    <!-- create_recipe.html -->
-    <form id="recipe-form" method="POST">
-        {% csrf_token %}
+    <h1>Edit recipe</h1>
+    <form action="" method="POST">
         {{ form.as_table }}
-
         <fieldset id="ingredients-fieldset">
             <legend>Ingredients</legend>
             {{ formset.management_form }}
@@ -27,7 +22,6 @@
             </div>
             <button type="button" id="add-formset-row">Add Ingredient</button>
         </fieldset>
-
         <!-- Display recipe macros -->
         <h3>Recipe Macros:</h3>
         <p>Total Calories: <span id="total-calories">0</span></p>
@@ -37,6 +31,7 @@
 
         <button type="submit">Save</button>
     </form>
+
     <script>
         var attributes = {
 
@@ -54,31 +49,48 @@
         }
     </script>
 
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
 
         $(document).ready(function () {
 
 
-            $('[data-selset]').first().fadeIn(0)
+            var elements = $('.base_element')
+
+            // Checks for populated ingredients and shows them
+            for (var i = 0; i < elements.length; i++) {
+                var element = elements[i]
+
+
+                {#var select = $(element).find('select')#}
+
+                var inputValue = parseInt($(element).find('input').val())
+                console.log(inputValue);
+
+                if (inputValue) {
+
+                    $("[data-selset]:hidden:first").show();
+                }
+            }
+
+
             var formsetRowsContainer = $('#formset-rows');
             var addButton = $('#add-formset-row');
-
             addButton.click(function () {
 
                 $("[data-selset]:hidden:first").show();
 
-            });
 
+            });
             document.addEventListener('change', onChange);
             calculate()
 
 
-        });//end document ready
 
+        });
 
 
     </script>
-
 
 {% endblock %}
