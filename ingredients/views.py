@@ -30,7 +30,7 @@ class CreateIngredient(CreateView, LoginRequiredMixin):
     model = Ingredient
     form_class = IngredientForm
     template_name = 'ingredients/create_ingredient.html'
-
+    success_url = reverse_lazy('index ingredients page')
     def form_valid(self, form):
         ingredient = form.save(commit=False)
         ingredient.user = self.request.user

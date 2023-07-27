@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    <div>
+
+        <h1>{{ recipe.title }}</h1>
+        <p>{{ recipe.instruction }}</p>
+
+        <h2>Ingredients: </h2>
+        {% for ingredient in ingredients %}
+            <div>
+                {% if ingredient.measurements == "1000" %}
+
+                    <p>{{ ingredient.ingredient.name }} {{ ingredient.quantity }} kg</p>
+                {% else %}
+                    <p>{{ ingredient.ingredient.name }} {{ ingredient.quantity }} grams</p>
+                {% endif %}
+            </div>
+
+        {% endfor %}
+
+        <h2>Recipe macros:</h2>
+        <p>Calories: {{ recipe.calories }}</p>
+        <p>Proteins: {{ recipe.proteins }}</p>
+        <p>Carbs: {{ recipe.carbs }}</p>
+        <p>Fats: {{ recipe.fats }}</p>
+    </div>
+
+    <a href="{% url 'edit recipe page' pk=recipe.pk %}">Edit recipe</a>
+    <a href="{% url 'delete recipe page' pk=recipe.pk %}">Delete recipe</a>
+
+
+{% endblock %}

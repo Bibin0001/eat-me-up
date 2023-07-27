@@ -19,7 +19,7 @@ class Recipe(models.Model):
     fats = models.FloatField(null=True, blank=True)
 
     share = models.BooleanField(default=False)
-
+    approved_for_sharing = models.BooleanField(default=False)
     def calculate_macros(self):
         calories = 0
         proteins = 0
@@ -48,6 +48,12 @@ class Recipe(models.Model):
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    class Meta:
+        permissions = [
+            ('approve_recipe', 'Can approve recipes for sharing')
+        ]
+
+
     def __str__(self):
         return f"{self.title}"
 
@@ -62,3 +68,10 @@ class RecipeIngredient(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     measurements = models.CharField(max_length=21, choices=MEASURING_TYPES)
+
+class SavedRecipes(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Recipe: {self.recipe.title}"

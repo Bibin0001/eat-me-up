@@ -6,6 +6,7 @@
         <div>
             <p>Recipe name: {{ recipe.title }}</p>
             <a href="{% url 'edit recipe page' pk=recipe.pk %} ">Edit your recipe!</a>
+            <a href="{% url 'details recipe page' pk=recipe.pk %}">Recipe Details!</a>
         </div>
 
     {% endfor %}

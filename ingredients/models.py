@@ -18,7 +18,6 @@ class Ingredient(models.Model):
     fats_per_gram = models.FloatField()
 
     ingredient_type = models.CharField(max_length=30, choices=INGREDIENT_TYPES)
-    share = models.BooleanField(default=False)
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 

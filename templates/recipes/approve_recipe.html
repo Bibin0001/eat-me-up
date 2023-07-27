@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    <h2>Recipe {{ recipe.title }}</h2>
+    <p>Instructions: {{ recipe.instruction }}</p>
+
+    <h3>Ingredients: </h3>
+    {% for ingredient in ingredients %}
+        <div>
+            {% if ingredient.measurements == "1000" %}
+
+                <p>{{ ingredient.ingredient.name }} {{ ingredient.quantity }} kg</p>
+            {% else %}
+                <p>{{ ingredient.ingredient.name }} {{ ingredient.quantity }} grams</p>
+            {% endif %}
+        </div>
+
+    {% endfor %}
+
+    <form method="POST">
+        <input type="submit" name="approve" value="Approve Recipe">
+        <input type="submit" name="reject" value="Discard Recipe">
+        {% csrf_token %}
+    </form>
+{% endblock %}

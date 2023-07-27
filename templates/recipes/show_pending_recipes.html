@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+{% block main_content %}
+
+    {% for recipe in recipes %}
+        <h2>{{ recipe.title }}</h2>
+        <a href="{% url 'approve pending recipe page' pk=recipe.pk %}">Look Recipe!</a>
+    {% endfor %}
+{% endblock %}
