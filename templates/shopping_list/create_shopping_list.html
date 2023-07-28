@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    <h2>Create your shopping list </h2>
+
+    <form method="POST">
+        {{ form.as_div}}
+        <button>Save</button>
+        {% csrf_token %}
+    </form>
+
+{% endblock %}

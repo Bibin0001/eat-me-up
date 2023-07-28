@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block main_content %}
+    <h2>Shopping list: {{ shopping_list.title }}</h2>
+
+    {% for recipe, recipe_ingredients in recipes.items %}
+
+        <p>Products needed for {{ recipe.title }}</p>
+        <ul>
+
+            {% for ingredient_dict in recipe_ingredients %}
+                {% for ingredient, ingredient_values in ingredient_dict.items %}
+
+                    {% if ingredient_values.1 == '1000' %}
+                        <li>{{ ingredient.name }} - {{ ingredient_values.0 }} kgs</li>
+                    {% else %}
+
+                        <li>{{ ingredient.name }} - {{ ingredient_values.0 }} grams</li>
+                    {% endif %}
+
+                {% endfor %}
+            {% endfor %}
+
+        </ul>
+    {% endfor %}
+    {% if shopping_list.additional_info %}
+        <h2>Additional items: </h2>
+        <p>{{ shopping_list.additional_info }}</p>
+    {% endif %}
+{% endblock %}

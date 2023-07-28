@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block main_content %}
+    {% if shopping_lists %}
+        {% for list in shopping_lists %}
+            <div>
+                <h4>{{ list.title }}</h4>
+                <a href="{% url 'edit shopping list page' pk=list.pk %}">Edit</a>
+                <a href="{% url 'show shopping list page' pk=list.pk %}">Show</a>
+            </div>
+        {% endfor %}
+
+    {% else %}
+        <h2>You dont have a shopping list.</h2>
+
+    {% endif %}
+    <a href="{% url 'create shopping list page' %}">Create a shopping list</a>
+
+{% endblock %}

@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'home',
     'recipes',
     'jquery',
-    'ingredients'
+    'ingredients',
+    'shopping_list'
 
 ]
 

@@ -3,7 +3,7 @@
 <a href="{% url 'recipes index page' %}">Recipes</a>
 <a href="{% url 'index ingredients page' %}">Ingredients</a>
 <a href="{% url 'log out page' %}">Log out</a>
-
+<a href="{% url 'show shopping lists page' %}">Shopping Lists</a>
 {% if user.is_staff %}
     <a href="{% url 'show pending recipes page' %}">Approve Recipes!</a>
 {% endif %}
