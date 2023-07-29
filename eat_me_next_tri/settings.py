@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'recipes',
     'jquery',
     'ingredients',
-    'shopping_list'
+    'shopping_list',
+    'eating_plan'
 
 ]
 

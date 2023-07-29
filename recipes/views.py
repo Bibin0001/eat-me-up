@@ -180,7 +180,6 @@ def create_recipe(request):
                         measurements=ingredient_measurment
                     )
 
-            recipe.calculate_macros()
 
             return redirect('recipes index page')
 

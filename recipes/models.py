@@ -53,6 +53,11 @@ class Recipe(models.Model):
             ('approve_recipe', 'Can approve recipes for sharing')
         ]
 
+    def save(self, *args, **kwargs):
+
+        self.calculate_macros()
+        super().save(*args, **kwargs)
+
 
     def __str__(self):
         return f"{self.title}"

@@ -4,6 +4,7 @@
 <a href="{% url 'index ingredients page' %}">Ingredients</a>
 <a href="{% url 'log out page' %}">Log out</a>
 <a href="{% url 'show shopping lists page' %}">Shopping Lists</a>
+<a href="{% url 'show eating plans page' %}">Eating Plans</a>
 {% if user.is_staff %}
     <a href="{% url 'show pending recipes page' %}">Approve Recipes!</a>
 {% endif %}

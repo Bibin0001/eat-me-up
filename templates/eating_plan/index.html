@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    {% if eating_plans %}
+        {% for eating_plan in eating_plans %}
+            <div>
+                <p>{{ eating_plan.title }}</p>
+            </div>
+
+        {% endfor  %}
+
+
+    {% else %}
+    <h2>You haven't created an eating plan yet</h2>
+    {% endif %}
+
+    <a href="{% url 'create eating plan page' %}">Create a plan</a>
+
+{% endblock %}

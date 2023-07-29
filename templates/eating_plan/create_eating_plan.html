@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    <h2>Create your eating plan!</h2>
+
+    <form method="POST">
+        {{ form.as_p }}
+        <button>Create</button>
+        {% csrf_token %}
+    </form>
+
+    <div>
+        <h3>Total macros of the eating plan:</h3>
+        <p>Total Calories: <span id="total-calories">0</span></p>
+        <p>Total Proteins: <span id="total-proteins">0</span></p>
+        <p>Total Fats: <span id="total-fats">0</span></p>
+        <p>Total Carbs: <span id="total-carbs">0</span></p>
+
+    </div>
+
+
+    <script>
+        var attributes = {
+        {% for recipe in recipes %}
+            {{ recipe.pk }} :
+            ['{{ recipe.calories }}', '{{ recipe.proteins }}', '{{ recipe.fats }}', '{{ recipe.carbs }}'],
+        {% endfor %}
+        }
+
+
+    </script>
+    <script>
+        $(document).ready(function () {
+
+
+            document.addEventListener('change', calculateMacros)
+
+
+            function calculateMacros() {
+
+                var total_calories = 0
+                var total_proteins = 0
+                var total_fats = 0
+                var total_carbs = 0
+
+                var breakfast_id = $('#id_breakfast').val()
+                var lunch_id = $('#id_lunch').val()
+                var dinner_id = $('#id_dinner').val()
+
+                // Gets all recipe macros of the chosen recipe. 0: calories, 1: proteins, 2: fats, 3: carbs
+                var breakfast_macros = [parseFloat(attributes[breakfast_id][0]), parseFloat(attributes[breakfast_id][1]), parseFloat(attributes[breakfast_id][2]), parseFloat(attributes[breakfast_id][3])]
+                var lunch_macros = [parseFloat(attributes[lunch_id][0]), parseFloat(attributes[lunch_id][1]), parseFloat(attributes[lunch_id][2]), parseFloat(attributes[lunch_id][3])]
+                var dinner_macros = [parseFloat(attributes[dinner_id][0]), parseFloat(attributes[dinner_id][1]), parseFloat(attributes[dinner_id][2]), parseFloat(attributes[dinner_id][3])]
+
+                total_calories = breakfast_macros[0] + lunch_macros[0] + dinner_macros[0]
+                total_proteins = breakfast_macros[1] + lunch_macros[1] + dinner_macros[1]
+                total_fats = breakfast_macros[2] + lunch_macros[2] + dinner_macros[2]
+                total_carbs = breakfast_macros[3] + lunch_macros[3] + dinner_macros[3]
+
+
+                $('#total-calories').text(total_calories);
+                $('#total-proteins').text(total_proteins);
+                $('#total-fats').text(total_fats);
+                $('#total-carbs').text(total_carbs);
+            }
+
+
+        });
+    </script>
+{% endblock %}
