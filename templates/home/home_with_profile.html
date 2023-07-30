@@ -1,16 +1,50 @@
 <h2>Macros for the Day</h2>
-  <div id="macros">
+<div id="macros">
 
-    <p><strong>Calories: {{ account.calories }} </strong> <span id="protein"></span> </p>
-    <p><strong>Protein: {{ account.protein }}</strong> <span id="protein"></span> </p>
-    <p><strong>Carbohydrates: {{ account.carbs }}</strong> <span id="carbs"></span> </p>
-    <p><strong>Fat: {{ account.fats }}</strong> <span id="fat"></span> </p>
-  </div>
+    <p><strong>Calories: {{ account.calories }} </strong> <span id="protein"></span></p>
+    <p><strong>Protein: {{ account.protein }}</strong> <span id="protein"></span></p>
+    <p><strong>Carbohydrates: {{ account.carbs }}</strong> <span id="carbs"></span></p>
+    <p><strong>Fat: {{ account.fats }}</strong> <span id="fat"></span></p>
+</div>
 
 <h2>Eating plan</h2>
 
 <div>
-    <p>Breakfast</p>
-    <p>Lunch</p>
-    <p>Dinner</p>
+    {% if plan %}
+
+        <p>Breakfast: {{ plan.plan.breakfast.title }}</p>
+        <p>Lunch: {{ plan.plan.lunch.title }}</p>
+        <p>Dinner: {{ plan.plan.dinner.title }}</p>
+
+        <h2>Plan macros: </h2>
+        <ul>
+            <li>
+                Calories: {{ plan.plan.total_calories }}
+            </li>
+
+            <li>
+                Proteins: {{ plan.plan.total_proteins }}
+            </li>
+            <li>
+                Carbs: {{ plan.plan.total_carbs }}
+            </li>
+            <li>
+                Fats: {{ plan.plan.total_fats }}
+            </li>
+        </ul>
+        <a href="{% url 'change eating plan for the day page' pk=plan.pk %}">
+            <button>Change plan</button>
+        </a>
+
+        <a href="{% url 'delete eating plan for the day page' pk=plan.pk %}">
+            <button>Remove plan</button>
+        </a>
+
+    {% else %}
+        <h3>You don't have an eating plan for the day</h3>
+        <a href="{% url 'select eating plan for the day page' %}">
+            <button>Create a plan</button>
+        </a>
+    {% endif %}
+
 </div>

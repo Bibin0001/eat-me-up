@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    <h2>Remove plan for the day</h2>
+
+    <form method="POST">
+        <button>Remove</button>
+        {% csrf_token %}
+    </form>
+
+    <a href="{% url 'home page' %}">
+        <button>Go back</button>
+    </a>
+{% endblock %}
