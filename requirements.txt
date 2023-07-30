@@ -1,0 +1,15 @@
+martor
+gunicorn
+asgiref==3.7.2
+certifi==2023.5.7
+charset-normalizer==3.2.0
+Django==4.2.3
+django-extensions==3.2.3
+django-jquery==3.1.0
+export==0.2.1
+idna==3.4
+Pillow==10.0.0
+requests==2.31.0
+sqlparse==0.4.4
+typing_extensions==4.7.1
+urllib3==2.0.3
