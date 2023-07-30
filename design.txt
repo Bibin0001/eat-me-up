@@ -1,0 +1,6 @@
+background color : #8860D0
+forms : 	#99ffff
+button unclicked : 
+
+
+

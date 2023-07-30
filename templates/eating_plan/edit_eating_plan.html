@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+
+    <form method="POST">
+        {{ form.as_p }}
+        <button>Edit</button>
+
+        {% csrf_token %}
+    </form>
+
+
+    <script>
+        var attributes = {
+        {% for recipe in recipes %}
+            {{ recipe.pk }} :
+            ['{{ recipe.calories }}', '{{ recipe.proteins }}', '{{ recipe.fats }}', '{{ recipe.carbs }}'],
+        {% endfor %}
+    </script>
+
+    <script>
+
+    </script>
+{% endblock %}

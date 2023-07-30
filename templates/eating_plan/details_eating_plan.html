@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    <div>
+        <h1>Plan {{ plan.title }}</h1>
+
+        <h3>
+            Breakfast meal: {{ plan.breakfast.title }}
+        </h3>
+
+        <h3>
+            Lunch meal: {{ plan.lunch.title }}
+        </h3>
+
+        <h3>
+            Dinner meal: {{ plan.dinner.title }}
+        </h3>
+
+
+    </div>
+
+    <div>
+        <h3>Calories taken for the day:</h3>
+        <ul>
+            <li>
+                <p>
+                    <strong>Calories</strong>: {{ plan.total_calories }}
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    <strong>Proteins</strong>: {{ plan.total_proteins}}
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    <strong>Carbs</strong>: {{ plan.total_carbs}}
+                </p>
+            </li>
+
+            <li>
+                <p>
+                    <strong>Fats</strong>: {{ plan.total_fats}}
+                </p>
+            </li>
+        </ul>
+    </div>
+
+
+
+
+
+
+    <a href="{% url 'edit eating plan page' pk=plan.pk %}">
+        <button>Edit</button>
+    </a>
+{% endblock %}
