@@ -12,6 +12,11 @@ class EatingPlan(models.Model):
     lunch = models.ForeignKey(Recipe, related_name='lunch_plan', on_delete=models.SET_NULL, null=True)
     dinner = models.ForeignKey(Recipe, related_name='dinner_plan', on_delete=models.SET_NULL, null=True)
 
+    total_calories = models.FloatField(null=True, blank=True)
+    total_proteins = models.FloatField(null=True, blank=True)
+    total_carbs = models.FloatField(null=True, blank=True)
+    total_fats = models.FloatField(null=True, blank=True)
+
     def calculate_macros(self):
         self.total_calories = (
                 self.breakfast.calories + self.lunch.calories + self.dinner.calories

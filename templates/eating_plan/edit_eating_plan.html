@@ -9,6 +9,15 @@
         {% csrf_token %}
     </form>
 
+    <div>
+        <h3>Total macros of the eating plan:</h3>
+        <p>Total Calories: <span id="total-calories">0</span></p>
+        <p>Total Proteins: <span id="total-proteins">0</span></p>
+        <p>Total Fats: <span id="total-fats">0</span></p>
+        <p>Total Carbs: <span id="total-carbs">0</span></p>
+
+    </div>
+
 
     <script>
         var attributes = {
@@ -16,9 +25,20 @@
             {{ recipe.pk }} :
             ['{{ recipe.calories }}', '{{ recipe.proteins }}', '{{ recipe.fats }}', '{{ recipe.carbs }}'],
         {% endfor %}
+        };
     </script>
 
     <script>
+        $(document).ready(function () {
+            calculateMacros();
+
+            addEventListener('change', calculateMacros)
+
+        })
+
 
     </script>
+
+
+
 {% endblock %}
