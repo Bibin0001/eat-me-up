@@ -179,7 +179,7 @@ def create_recipe(request):
                         quantity=ingredient_quantity,
                         measurements=ingredient_measurment
                     )
-
+            recipe.calculate_macros()
 
             return redirect('recipes index page')
 
@@ -199,7 +199,7 @@ def create_recipe(request):
 @login_required
 def edit_recipe(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
-    RecipeIngredientFormSet = modelformset_factory(RecipeIngredient, RecipeIngredientForm, extra=3,
+    RecipeIngredientFormSet = modelformset_factory(RecipeIngredient, RecipeIngredientForm, extra=30,
                                                    fields=['ingredient', 'quantity', 'measurements'],
                                                    formset=RecipeIngredientFormUserSetUp)
 

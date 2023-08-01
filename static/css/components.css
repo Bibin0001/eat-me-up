@@ -1,0 +1,21 @@
+/*.button-container {*/
+/*  display: grid;*/
+/*  place-items: center;*/
+/*  height: 200px; !* Set a height for the container, or adjust as needed *!*/
+/*}*/
+
+/*.centered-button {*/
+/*  !* Your button styles here *!*/
+/*}*/
+
+
+/*.navigation {*/
+/*    list-style: none;*/
+/*    padding: 0;*/
+/*    margin: 0;*/
+/*    display: flex;*/
+/*}*/
+
+/*.navigation li {*/
+/*    margin: 0 10px; !* Adjust the spacing between navigation items *!*/
+/*}*/

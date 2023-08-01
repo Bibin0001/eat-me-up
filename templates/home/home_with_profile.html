@@ -42,9 +42,12 @@
 
     {% else %}
         <h3>You don't have an eating plan for the day</h3>
-        <a href="{% url 'select eating plan for the day page' %}">
-            <button>Create a plan</button>
-        </a>
+        <div class="button-container">
+
+            <a href="{% url 'select eating plan for the day page' %}">
+                <button class="centered-button">Create a plan</button>
+            </a>
+        </div>
     {% endif %}
 
 </div>

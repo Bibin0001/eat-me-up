@@ -1,10 +1,41 @@
-<a href="{% url 'home page' %}">Home </a>
-<a href="{% url 'account details page' %}">Profile</a>
-<a href="{% url 'recipes index page' %}">Recipes</a>
-<a href="{% url 'index ingredients page' %}">Ingredients</a>
-<a href="{% url 'log out page' %}">Log out</a>
-<a href="{% url 'show shopping lists page' %}">Shopping Lists</a>
-<a href="{% url 'show eating plans page' %}">Eating Plans</a>
-{% if user.is_staff %}
-    <a href="{% url 'show pending recipes page' %}">Approve Recipes!</a>
-{% endif %}
+<div class="navigation-container">
+    <ul class="nav nav-pills nav-justified">
+        <li class="nav-item">
+            <a href="{% url 'home page' %}" class="nav-link">Home </a>
+        </li>
+
+        <li class="nav-item">
+            <a href="{% url 'account details page' %}" class="nav-link">Profile</a>
+        </li>
+
+        <li class="nav-item">
+
+            <a href="{% url 'recipes index page' %}" class="nav-link">Recipes</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'index ingredients page' %}" class="nav-link">Ingredients</a>
+
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'log out page' %}" class="nav-link">Log out</a>
+
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'show shopping lists page' %} " class="nav-link">Shopping Lists</a>
+
+        </li>
+        <li class="nav-item">
+            <a href="{% url 'show eating plans page' %}" class="nav-link">Eating Plans</a>
+
+        </li>
+        {% if user.is_staff %}
+            <li class="nav-item">
+                <a href="{% url 'show pending recipes page' %}" class="nav-link">Approve Recipes!</a>
+
+            </li>
+        {% endif %}
+
+
+    </ul>
+
+</div>

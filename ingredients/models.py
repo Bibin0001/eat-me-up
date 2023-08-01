@@ -19,7 +19,7 @@ class Ingredient(models.Model):
 
     ingredient_type = models.CharField(max_length=30, choices=INGREDIENT_TYPES)
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):
         return f"{self.name}"

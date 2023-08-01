@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  web:
+    image: eat_me
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    environment:
+      DEBUG: "True"
+      SECRET_KEY: "django-insecure-2%&dj3a6*h$p*%j=*k4n-@r&yp-1nqru404ja2ub$j&ngl5jrm"
+      DATABASE_URL: "postgres://bobo:bobo@postgres:5432/eat_me_db"
+    depends_on:
+      - postgres
+    volumes:
+      - ./static:/eat_me_next_tri/static
+
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_PASSWORD: bobo
+      POSTGRES_USER: bobo
+      POSTGRES_DB: eat_me_db
+      PGDATA: /var/lib/postgresql/data/pgdata
+
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data
+

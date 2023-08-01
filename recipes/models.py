@@ -20,6 +20,7 @@ class Recipe(models.Model):
 
     share = models.BooleanField(default=False)
     approved_for_sharing = models.BooleanField(default=False)
+
     def calculate_macros(self):
         calories = 0
         proteins = 0
@@ -53,10 +54,6 @@ class Recipe(models.Model):
             ('approve_recipe', 'Can approve recipes for sharing')
         ]
 
-    def save(self, *args, **kwargs):
-
-        self.calculate_macros()
-        super().save(*args, **kwargs)
 
 
     def __str__(self):
@@ -73,6 +70,7 @@ class RecipeIngredient(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
     quantity = models.IntegerField()
     measurements = models.CharField(max_length=21, choices=MEASURING_TYPES)
+
 
 class SavedRecipes(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -1,5 +1,6 @@
 martor
 gunicorn
+psycopg2-binary
 asgiref==3.7.2
 certifi==2023.5.7
 charset-normalizer==3.2.0

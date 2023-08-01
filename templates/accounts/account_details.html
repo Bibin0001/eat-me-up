@@ -10,16 +10,18 @@
         <p><strong>Goals: {{ account.goal }}</strong> <span id="goals"></span></p>
     </div>
 
-    <a href="{% url 'account edit page'%}">
-    <button>Edit profile</button>
+    <a href="{% url 'account edit page' %}">
+        <button>Edit profile</button>
     </a>
 
-    <h2>Daily macros:</h2>
+    <h2>Daily macros: </h2>
     <div>
-        <p>Calories : {{ account.calories }}</p>
-        <p>Proteins: {{ account.protein }}</p>
-        <p>Carbohydrates: {{ account.carbs  }}</p>
-        <p>Fats: {{ account.fats }}</p>
+        <ul>
+            <li>Calories : {{ account.calories }}</li>
+            <li>Proteins: {{ account.protein }}</li>
+            <li>Carbohydrates: {{ account.carbs }}</li>
+            <li>Fats: {{ account.fats }}</li>
+        </ul>
 
     </div>
     <p>If you don't like your macros you can change them <a href="{% url 'account macros edit page' %}">here</a></p>

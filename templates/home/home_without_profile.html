@@ -1,30 +1,31 @@
-
  <main>
-     <h1>Welcome to Eat me!</h1>
+     <h1 class="header_color">Welcome to Eat me!</h1>
 
-    <section>
+    <section class=".text-center">
 
-      <h2>About</h2>
-      <p>
+      <h2 class="header_color">About</h2>
+      <p class="text_color">
           This app helps you to calculate your macronutrients and follow them through the day
       </p>
 
     </section>
 
-    <section>
-      <h2>Features</h2>
+    <section class=".text-center">
+      <h2 class="header_color">Features</h2>
       <ul>
-          <li>Calculates your macronutrients based on your goals using a BMI Calculator</li>
-          <li>Create and save recipes</li>
-          <li>Make  an eating plan for the day</li>
+          <li class="text_color">Calculates your macronutrients based on your goals using a BMI Calculator</li>
+          <li class="text_color">Create and save recipes</li>
+          <li class="text_color">Make  an eating plan for the day</li>
       </ul>
     </section>
 
-    <section>
-      <h2>Get Started</h2>
-      <p>
+    <section class=".text-center">
+      <h2 class="header_color">Get Started</h2>
+      <p class="text_color">
           Start managing your eating by signing in !
       </p>
-      <a href="{% url 'register page' %}">Create Your Profile</a>
+
+      <a href="{% url 'register page' %}" class="link_color">
+          <button class=".text-center">Create Your Profile</button></a>
     </section>
   </main>

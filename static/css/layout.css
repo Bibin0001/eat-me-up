@@ -1,0 +1,19 @@
+.container {
+    display: grid;
+    place-items: center;
+    min-height: 40vh; /* Sets space between elements */
+}
+
+
+#footer {
+    display: grid;
+    place-items: center;
+    min-height: 10vh; /* Optional: Set a minimum height to ensure elements are centered in the viewport */
+}
+
+.navigation-container {
+    display: flex;
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Centers items vertically */
+    height: 100px; /* Set a height for the navigation container, or adjust as needed */
+}

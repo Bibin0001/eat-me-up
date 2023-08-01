@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-2%&dj3a6*h$p*%j=*k4n-@r&yp-1nqru404ja2ub$j&ngl5jrm
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
+
 
 # Application definition
 
@@ -39,7 +40,6 @@ INSTALLED_APPS = [
     'accounts',
     'home',
     'recipes',
-    'jquery',
     'ingredients',
     'shopping_list',
     'eating_plan'
@@ -82,11 +82,23 @@ WSGI_APPLICATION = 'eat_me_next_tri.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "mydatabase",
     }
 }
+# 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "eat_me_db",
+#         "USER": "bobo",
+#         "PASSWORD": "bobo",
+#         "HOST": "postgres",
+#         "PORT": "5432",
+#     }
+# }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -121,9 +133,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
+# STATICFILES_DIRS = [BASE_DIR / 'static']
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = (BASE_DIR / 'static')
 STATICFILES_DIRS = [BASE_DIR / 'static']
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-
 MEDIA_URL = 'media/'
 MEDIA_ROOT = (BASE_DIR / 'media')
 

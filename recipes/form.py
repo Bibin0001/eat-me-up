@@ -1,6 +1,6 @@
 from django import forms
 from django.db.models import Q
-from django.forms import BaseFormSet
+from django.forms import BaseFormSet, BaseModelFormSet
 
 from .models import Recipe, RecipeIngredient, Ingredient
 
@@ -48,8 +48,7 @@ class RecipeIngredientForm(forms.ModelForm):
         # self.fields['measurements'].widget.attrs['style'] = 'display:none'
 
 
-
-class RecipeIngredientFormUserSetUp(BaseFormSet):
+class RecipeIngredientFormUserSetUp(BaseModelFormSet):
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super().__init__(*args, **kwargs)

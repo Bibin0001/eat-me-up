@@ -88,3 +88,6 @@ def delete_plan_for_the_day(request, pk):
         return redirect('home page')
 
     return render(request, 'home/delete_plan_for_the_day.html')
+
+def about(request):
+    return render(request,'home/about.html')
