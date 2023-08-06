@@ -13,6 +13,108 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.forms import formset_factory
 
 
+@login_required
+def create_recipe(request):
+    RecipeIngredientFormSet = modelformset_factory(form=RecipeIngredientForm, extra=30,
+                                                   formset=RecipeIngredientFormUserSetUp,
+                                                   model=RecipeIngredient,
+                                                   )
+
+    if request.method == 'POST':
+        form = RecipeForm(request.POST)
+        formset = RecipeIngredientFormSet(request.POST, user=request.user, queryset=RecipeIngredient.objects.none())
+
+        if form.is_valid() and formset.is_valid():
+
+            recipe = form.save(commit=False)
+
+            recipe.user = request.user
+            recipe.save()
+
+            for form in formset:
+                ingredient_name = form.cleaned_data.get('ingredient')
+                if ingredient_name:
+                    ingredient_quantity = form.cleaned_data.get('quantity')
+                    ingredient_measurment = form.cleaned_data.get('measurements')
+                    print(ingredient_quantity)
+                    RecipeIngredient.objects.create(
+                        recipe=recipe,
+                        ingredient=ingredient_name,
+                        quantity=ingredient_quantity,
+                        measurements=ingredient_measurment
+                    )
+
+            recipe.calculate_macros()
+            return redirect('details recipe page', pk=recipe.pk)
+
+    else:
+        form = RecipeForm()
+        formset = RecipeIngredientFormSet(user=request.user, queryset=RecipeIngredient.objects.none())
+
+    context = {
+        'form': form,
+        'formset': formset,
+        'ingredients': Ingredient.objects.filter(Q(user=request.user) | Q(user=None)).all()
+    }
+
+    return render(request, 'recipes/create_recipe.html', context)
+
+
+@login_required
+def edit_recipe(request, pk):
+    recipe = get_object_or_404(Recipe, pk=pk)
+    RecipeIngredientFormSet = modelformset_factory(model=RecipeIngredient, form=RecipeIngredientForm, extra=30,
+                                                   formset=RecipeIngredientFormUserSetUp,
+                                                   can_delete=True,
+                                                   can_delete_extra=True
+                                                   )
+
+    if request.method == 'POST':
+        form = RecipeForm(request.POST, instance=recipe)
+        formset = RecipeIngredientFormSet(request.POST, queryset=recipe.recipeingredient_set.all(),
+                                          user=request.user)
+
+        if form.is_valid() and formset.is_valid():
+            print("FORM IS VALID")
+            with transaction.atomic():
+                recipe = form.save()
+
+                for ingredient in recipe.recipeingredient_set.all():
+                    ingredient.delete()
+
+                for form in formset:
+                    ingredient_name = form.cleaned_data.get('ingredient')
+                    if ingredient_name:
+                        ingredient_quantity = form.cleaned_data.get('quantity')
+                        ingredient_measurment = form.cleaned_data.get('measurements')
+                        print(ingredient_quantity)
+                        RecipeIngredient.objects.create(
+                            recipe=recipe,
+                            ingredient=ingredient_name,
+                            quantity=ingredient_quantity,
+                            measurements=ingredient_measurment
+                        )
+
+            recipe.calculate_macros()
+            return redirect('details recipe page', pk=recipe.pk)
+        else:
+            print(formset.errors)
+
+
+    else:
+        form = RecipeForm(instance=recipe)
+        formset = RecipeIngredientFormSet(queryset=recipe.recipeingredient_set.all(),
+                                          user=request.user)
+
+    context = {
+        'form': form,
+        'formset': formset,
+        'ingredients': Ingredient.objects.filter(Q(user=request.user) | Q(user=None)).all()
+    }
+
+    return render(request, 'recipes/edit_recipe.html', context=context)
+
+
 def shared_recipe_details(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
     ingredients = recipe.recipeingredient_set.all()
@@ -98,6 +200,8 @@ def delete_recipe(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
 
     if request.method == 'POST':
+        for ingredient in recipe.recipeingredient_set.all():
+            ingredient.delete()
         recipe.delete()
 
         return redirect('show recipes page')
@@ -143,97 +247,3 @@ class ShowUserRecipes(ListView, LoginRequiredMixin):
         queryset = user_recipes | saved_recipes
 
         return queryset
-
-
-@login_required
-def create_recipe(request):
-    RecipeIngredientFormSet = modelformset_factory(form=RecipeIngredientForm, extra=30,
-                                                   formset=RecipeIngredientFormUserSetUp,
-                                                   model=RecipeIngredient,
-                                                   )
-
-    if request.method == 'POST':
-        form = RecipeForm(request.POST)
-        formset = RecipeIngredientFormSet(request.POST, user=request.user, queryset=RecipeIngredient.objects.none())
-
-        if form.is_valid() and formset.is_valid():
-
-            recipe = form.save(commit=False)
-
-            recipe.user = request.user
-            recipe.save()
-
-            for form in formset:
-                ingredient_name = form.cleaned_data.get('ingredient')
-                if ingredient_name:
-                    ingredient_quantity = form.cleaned_data.get('quantity')
-                    ingredient_measurment = form.cleaned_data.get('measurements')
-                    print(ingredient_quantity)
-                    RecipeIngredient.objects.create(
-                        recipe=recipe,
-                        ingredient=ingredient_name,
-                        quantity=ingredient_quantity,
-                        measurements=ingredient_measurment
-                    )
-
-            recipe.calculate_macros()
-            return redirect('details recipe page', pk=recipe.pk)
-
-    else:
-        form = RecipeForm()
-        formset = RecipeIngredientFormSet(user=request.user, queryset=RecipeIngredient.objects.none())
-
-    context = {
-        'form': form,
-        'formset': formset,
-        'ingredients': Ingredient.objects.filter(Q(user=request.user) | Q(user=None)).all()
-    }
-
-    return render(request, 'recipes/create_recipe.html', context)
-
-
-@login_required
-def edit_recipe(request, pk):
-    recipe = get_object_or_404(Recipe, pk=pk)
-    RecipeIngredientFormSet = modelformset_factory(RecipeIngredient, RecipeIngredientForm, extra=30,
-                                                   fields=['ingredient', 'quantity', 'measurements'],
-                                                   formset=RecipeIngredientFormUserSetUp,
-                                                   can_delete=True,
-                                                   can_delete_extra=True)
-
-    if request.method == 'POST':
-        form = RecipeForm(request.POST, instance=recipe)
-        formset = RecipeIngredientFormSet(request.POST, prefix='ingredient', queryset=recipe.recipeingredient_set.all(),
-                                          user=request.user)
-
-        for ingredient in recipe.recipeingredient_set.all():
-            ingredient.delete()
-
-        if form.is_valid() and formset.is_valid():
-            with transaction.atomic():
-                recipe = form.save()
-                instances = formset.save(commit=False)
-
-                for instance in instances:
-                    instance.recipe = recipe
-                    instance.save()
-
-
-            recipe.calculate_macros()
-            return redirect('details recipe page', pk=recipe.pk)
-        else:
-            print(formset.errors)
-
-
-    else:
-        form = RecipeForm(instance=recipe)
-        formset = RecipeIngredientFormSet(prefix='ingredient', queryset=recipe.recipeingredient_set.all(),
-                                          user=request.user)
-
-    context = {
-        'form': form,
-        'formset': formset,
-        'ingredients': Ingredient.objects.filter(Q(user=request.user) | Q(user=None)).all()
-    }
-
-    return render(request, 'recipes/edit_recipe.html', context=context)

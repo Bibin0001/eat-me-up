@@ -95,22 +95,8 @@
             var addButton = $('#add-formset-row');
             addButton.click(function () {
 
-                var formCount = parseInt($('#id_form-TOTAL_FORMS').val());
 
-                // Update management form fields
-                $('#id_form-TOTAL_FORMS').val(formCount + 1);
-                $('#id_form-INITIAL_FORMS').val(formCount);
-
-                // Clone and show the next hidden formset row
-                var newRow = $("[data-selset]:hidden:first").clone();
-                newRow.show();
-
-                // Uncheck the checkbox
-                newRow.find('input[type="checkbox"]').prop('checked', false);
-
-                formsetRowsContainer.append(newRow);
-
-
+                $("[data-selset]:hidden:first").show();
             });
             document.addEventListener('change', onChange);
             calculate()
