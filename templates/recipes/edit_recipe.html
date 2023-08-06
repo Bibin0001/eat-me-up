@@ -23,7 +23,7 @@
             <div id="formset-rows">
                 {% for form in formset %}
                     <div class="formset-row base_element mb-4 mt-4" data-selset style="display: none">
-                        <div class="button mb-4" onclick="resetSelect(this)">
+                        <div class="delete-button mb-4" onclick="resetSelect(this)">
                             <p id="buttonreset_0">remove</p>
                         </div>
                         {% for field in form %}
@@ -95,7 +95,20 @@
             var addButton = $('#add-formset-row');
             addButton.click(function () {
 
-                $("[data-selset]:hidden:first").show();
+                var formCount = parseInt($('#id_form-TOTAL_FORMS').val());
+
+                // Update management form fields
+                $('#id_form-TOTAL_FORMS').val(formCount + 1);
+                $('#id_form-INITIAL_FORMS').val(formCount);
+
+                // Clone and show the next hidden formset row
+                var newRow = $("[data-selset]:hidden:first").clone();
+                newRow.show();
+
+                // Uncheck the checkbox
+                newRow.find('input[type="checkbox"]').prop('checked', false);
+
+                formsetRowsContainer.append(newRow);
 
 
             });

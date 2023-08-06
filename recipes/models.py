@@ -34,7 +34,7 @@ class Recipe(models.Model):
             quantity = recipe_ingredient.quantity
             measurements = recipe_ingredient.measurements
 
-            if measurements == 'kilograms':
+            if measurements == '1000':
                 quantity = quantity * 1000
 
             calories += ingredient.calories_per_gram * quantity

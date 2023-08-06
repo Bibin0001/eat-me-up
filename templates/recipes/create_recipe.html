@@ -27,7 +27,7 @@
             <div id="formset-rows">
                 {% for form in formset %}
                     <div class="formset-row base_element mb-4 mt-4" data-selset style="display: none">
-                        <div class="button mb-4" onclick="resetSelect(this)">
+                        <div class="delete-button mb-4" onclick="rresetSelect(this)">
                             <p id="buttonreset_0">remove</p>
                         </div>
                         {% for field in form %}
@@ -79,9 +79,7 @@
             var addButton = $('#add-formset-row');
 
             addButton.click(function () {
-
                 $("[data-selset]:hidden:first").show();
-
             });
 
             document.addEventListener('change', onChange);
@@ -90,6 +88,24 @@
 
         });//end document ready
 
+
+        function rresetSelect(target) {
+            var parent = $(target).parent().children()
+
+
+            var ingredient = parent[1].children[1]
+            var quantity = parent[2].children[1]
+            var measurements = parent[3].children[1]
+            var element = attributes[ingredient.value];
+
+
+            $(ingredient).prop("selectedIndex", 0)
+            $(quantity).val('')
+            $(measurements).prop("selectedIndex", 0)
+
+            $(target).parent().fadeOut()
+            calculate()
+        }
 
     </script>
 

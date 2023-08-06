@@ -8,7 +8,7 @@ from .models import Recipe, RecipeIngredient, Ingredient
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['title',  'instruction', 'share']
+        fields = ['title', 'instruction', 'share']
 
         exclude = ['user', 'approved_for_sharing', 'photo']
 
@@ -16,7 +16,6 @@ class RecipeForm(forms.ModelForm):
         super(RecipeForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control mb-2 input-color'
-
 
 
 class RecipeIngredientForm(forms.ModelForm):
@@ -33,6 +32,7 @@ class RecipeIngredientForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         user = kwargs.pop('user', None)
         super(RecipeIngredientForm, self).__init__(*args, **kwargs)
+        self.fields.pop('id', None)
         self.fields['ingredient'].queryset = Ingredient.objects.filter(
             Q(user=user) | Q(user=None)
         )
@@ -41,11 +41,9 @@ class RecipeIngredientForm(forms.ModelForm):
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control mb-2 input-color'
 
-
         self.fields['ingredient'].widget.attrs['class'] += 'ingredients form-select input-color'
         self.fields['ingredient'].widget.attrs['dataChange'] = 'updateRecipeMacros'
         self.fields['measurements'].widget.attrs['dataChange'] = 'updateRecipeMacros'
-
 
 
 class RecipeIngredientFormUserSetUp(BaseModelFormSet):

@@ -120,8 +120,6 @@ def recipe_details(request, pk):
     return render(request, 'recipes/details_recipe.html', context=context)
 
 
-
-
 class ShowSharedRecipes(ListView, LoginRequiredMixin):
     model = Recipe
     template_name = 'recipes/show_shared_recipes.html'
@@ -151,7 +149,8 @@ class ShowUserRecipes(ListView, LoginRequiredMixin):
 def create_recipe(request):
     RecipeIngredientFormSet = modelformset_factory(form=RecipeIngredientForm, extra=30,
                                                    formset=RecipeIngredientFormUserSetUp,
-                                                   model=RecipeIngredient)
+                                                   model=RecipeIngredient,
+                                                   )
 
     if request.method == 'POST':
         form = RecipeForm(request.POST)
@@ -166,7 +165,6 @@ def create_recipe(request):
 
             for form in formset:
                 ingredient_name = form.cleaned_data.get('ingredient')
-                print(ingredient_name)
                 if ingredient_name:
                     ingredient_quantity = form.cleaned_data.get('quantity')
                     ingredient_measurment = form.cleaned_data.get('measurements')
@@ -199,12 +197,17 @@ def edit_recipe(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
     RecipeIngredientFormSet = modelformset_factory(RecipeIngredient, RecipeIngredientForm, extra=30,
                                                    fields=['ingredient', 'quantity', 'measurements'],
-                                                   formset=RecipeIngredientFormUserSetUp)
+                                                   formset=RecipeIngredientFormUserSetUp,
+                                                   can_delete=True,
+                                                   can_delete_extra=True)
 
     if request.method == 'POST':
         form = RecipeForm(request.POST, instance=recipe)
         formset = RecipeIngredientFormSet(request.POST, prefix='ingredient', queryset=recipe.recipeingredient_set.all(),
                                           user=request.user)
+
+        for ingredient in recipe.recipeingredient_set.all():
+            ingredient.delete()
 
         if form.is_valid() and formset.is_valid():
             with transaction.atomic():
@@ -215,7 +218,11 @@ def edit_recipe(request, pk):
                     instance.recipe = recipe
                     instance.save()
 
-        return redirect('details recipe page', pk=recipe.pk)
+
+            recipe.calculate_macros()
+            return redirect('details recipe page', pk=recipe.pk)
+        else:
+            print(formset.errors)
 
 
     else:
