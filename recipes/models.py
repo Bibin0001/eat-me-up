@@ -6,6 +6,8 @@ from ingredients.models import Ingredient
 
 # Create your models here.
 class Recipe(models.Model):
+    objects = models.Manager()
+
     title = models.CharField(max_length=40)
     photo = models.ImageField(upload_to='recipe_photos', null=True, blank=True)
 
@@ -53,8 +55,6 @@ class Recipe(models.Model):
         permissions = [
             ('approve_recipe', 'Can approve recipes for sharing')
         ]
-
-
 
     def __str__(self):
         return f"{self.title}"

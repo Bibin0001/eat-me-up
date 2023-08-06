@@ -1,13 +1,54 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-<h2> Finish up your profile! </h2>
-<p>Use this calculator to determine your needed macros. You can always change them later or use the calculator again!</p>
-
-    <form action="{% url 'account creation page' %}" method="POST">
-        {{ form.as_p }}
-        <button>Calculate</button>
+<h2 class="header_color"> Finish up your profile! </h2>
+<p class="text_color">Use this calculator to determine your needed macros. You can always change them later or use the calculator again!</p>
+    <form action="{% url 'account creation page' %}" method="POST" class="text-center custom-input">
         {% csrf_token %}
+        <div class="form-group">
+            <label for="{{ form.weight.id_for_label }}" class="header_color mb-3">Weight:</label>
+            <input type="{{ form.weight.field.widget.input_type }}" name="{{ form.weight.name }}"
+                   id="{{ form.weight.id_for_label }}" class="form-control mb-2 input-color"
+                   placeholder="Enter your weight">
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.height.id_for_label }}" class="header_color mb-3">Height:</label>
+            <input type="{{ form.height.field.widget.input_type }}" name="{{ form.height.name }}"
+                   id="{{ form.height.id_for_label }}" class="form-control mb-2 input-color"
+                   placeholder="Enter your height">
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.age.id_for_label }}" class="header_color mb-3">Age:</label>
+            <input type="{{ form.age.field.widget.input_type }}" name="{{ form.age.name }}"
+                   id="{{ form.age.id_for_label }}" class="form-control mb-2 input-color"
+                   placeholder="Enter your age">
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.gender.id_for_label }}" class="header_color mb-3">Gender:</label>
+            {{ form.gender }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.goal.id_for_label }}" class="header_color mb-3">Goal:</label>
+            {{ form.goal }}
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.activity.id_for_label }}" class="header_color mb-3">Activity Level:</label>
+            {{ form.activity }}
+        </div>
+
+        <button class="button mt-4">Calculate</button>
     </form>
 
 {% endblock %}
+
+
+{#    <form action="{% url 'account creation page' %}" method="POST">#}
+{#        {{ form.as_p }}#}
+{#        <button>Calculate</button>#}
+{#        {% csrf_token %}#}
+{#    </form>#}

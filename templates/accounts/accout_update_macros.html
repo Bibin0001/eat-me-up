@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-    <h2>Update your macros </h2>
-    <form action="{% url 'account macros edit page' %}" method="POST">
-    {{ form.as_p }}
-    <button>Update macros</button>
-    {% csrf_token %}
+    <div>
+        <h2 class="text-center">Update your macros </h2>
+        <form action="{% url 'account macros edit page' %}" method="POST" class="text-center">
+            {{ form.as_p }}
+            <button class="button mt-3">Update macros</button>
+            {% csrf_token %}
 
-    </form>
+        </form>
+
+    </div>
+
 {% endblock %}

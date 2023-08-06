@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block main_content %}
+
+    <h2 class="mt-5 mb-5">{{ ingredient.name }}</h2>
+
+    <div class="text-center">
+        <h3 class="mb-5">Macros per gram</h3>
+        <p>{{ ingredient.calories_per_gram  }}  -  calories</p>
+        <p>{{ ingredient.proteins_per_gram}}  -  proteins</p>
+        <p>{{ ingredient.fats_per_gram}}  -  fats</p>
+        <p>{{ ingredient.carbs_per_gram}}  -  carbs</p>
+    </div>
+
+    <a href="{% url 'edit ingredient page' pk=ingredient.pk %}">
+        <button class="button mb-4 mt-4">Edit</button>
+    </a>
+    <a href="{% url 'delete ingredient page' pk=ingredient.pk %}">
+        <button class="delete-button">Delete</button>
+    </a>
+
+
+{% endblock %}

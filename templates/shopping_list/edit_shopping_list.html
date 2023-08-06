@@ -1,11 +1,17 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block main_content %}
-    <h2>Edit your shopping list</h2>
+    <style>
+        label {
+            color: #eceff4;
+            font-weight: bold;
+        }
+    </style>
+    <h2 class="mt-5 mb-4">Edit your shopping list</h2>
 
-    <form method="POST">
+    <form method="POST" class="text-center">
         {{ form.as_p }}
-        <button>Edit</button>
+        <button class="button">Edit</button>
         {% csrf_token %}
     </form>
 

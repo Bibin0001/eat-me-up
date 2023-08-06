@@ -16,3 +16,5 @@ class UserSelectPlanForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
 
         self.fields['plan'].queryset = EatingPlan.objects.filter(user=user)
+        self.fields['plan'].widget.attrs['class'] = 'form-control mb-2 input-color'
+

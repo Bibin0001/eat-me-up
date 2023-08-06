@@ -18,11 +18,13 @@ def delete_eating_plan(request, pk):
         plan.delete()
 
         return redirect('show eating plans page')
-    context={
+    context = {
         'plan': plan
     }
 
     return render(request, 'eating_plan/delete_eating_plan.html', context=context)
+
+
 @login_required
 def show_eating_plan_details(request, pk):
     plan = get_object_or_404(EatingPlan, pk=pk)
@@ -82,7 +84,7 @@ class CreateEatingPlan(CreateView, LoginRequiredMixin):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['recipes'] = Recipe.objects.all()
+        context['recipes'] = Recipe.objects.filter(user=self.request.user)
         return context
 
     def get_form_kwargs(self):

@@ -1,26 +1,41 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block main_content %}
+    <style>
+        label[for^="id_ingredient-0-id"] {
+            display: none;
+        }
+    </style>
+
     <h1>Edit recipe</h1>
-    <form action="" method="POST">
-        {{ form.as_table }}
+    <form id="recipe-form" method="POST" class="text-center custom-input">
+        {% csrf_token %}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="header_color">{{ field.label }}</label>
+                {{ field }}
+            </div>
+        {% endfor %}
+
         <fieldset id="ingredients-fieldset">
-            <legend>Ingredients</legend>
+            <h2 class="header_color">Ingredients:</h2>
             {{ formset.management_form }}
             <div id="formset-rows">
                 {% for form in formset %}
-                    <div class="formset-row base_element" data-selset style="display: none">
-                        <div
-                                onclick="resetSelect(this)"
-                                style="background: red; border: solid; padding: 10px; width: 50px; cursor: pointer; font-size: 20px; text-align: center;">
-
+                    <div class="formset-row base_element mb-4 mt-4" data-selset style="display: none">
+                        <div class="button mb-4" onclick="resetSelect(this)">
                             <p id="buttonreset_0">remove</p>
                         </div>
-                        {{ form.as_div }}
-
+                        {% for field in form %}
+                            <div class="form-group">
+                                <label for="{{ field.id_for_label }}" class="header_color">{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
                     </div>
                 {% endfor %}
             </div>
-            <button type="button" id="add-formset-row">Add Ingredient</button>
+            <button type="button" id="add-formset-row" class="button mb-4">Add Ingredient</button>
         </fieldset>
         <!-- Display recipe macros -->
         <h3>Recipe Macros:</h3>
@@ -29,7 +44,7 @@
         <p>Total Fats: <span id="total-fats">0</span></p>
         <p>Total Carbs: <span id="total-carbs">0</span></p>
 
-        <button type="submit">Save</button>
+        <button type="submit" class="button">Edit</button>
         {% csrf_token %}
     </form>
 
@@ -86,7 +101,6 @@
             });
             document.addEventListener('change', onChange);
             calculate()
-
 
 
         });

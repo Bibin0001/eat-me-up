@@ -1,41 +1,55 @@
 {% extends 'base.html' %}
 {% load static %}
+
 {% block main_content %}
+
+
+    <style>
+        label[for^="id_form-0-id"] {
+            display: none;
+        }
+    </style>
     <!-- create_recipe.html -->
-    <h1>Have to mak</h1>
+    <h1 class="header_color mt-5 mb-4">Create a recipe</h1>
     <!-- create_recipe.html -->
-    <form id="recipe-form" method="POST">
+    <form id="recipe-form" method="POST" class="text-center custom-input">
         {% csrf_token %}
-        {{ form.as_table }}
+        {% for field in form %}
+            <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="header_color">{{ field.label }}</label>
+                {{ field }}
+            </div>
+        {% endfor %}
 
         <fieldset id="ingredients-fieldset">
-            <legend>Ingredients</legend>
+            <h2 class="header_color">Ingredients:</h2>
             {{ formset.management_form }}
             <div id="formset-rows">
                 {% for form in formset %}
-                    <div class="formset-row base_element" data-selset style="display: none">
-                        <div
-                                onclick="resetSelect(this)"
-                                style="background: red; border: solid; padding: 10px; width: 50px; cursor: pointer; font-size: 20px; text-align: center;">
-
+                    <div class="formset-row base_element mb-4 mt-4" data-selset style="display: none">
+                        <div class="button mb-4" onclick="resetSelect(this)">
                             <p id="buttonreset_0">remove</p>
                         </div>
-                        {{ form.as_div }}
-
+                        {% for field in form %}
+                            <div class="form-group">
+                                <label for="{{ field.id_for_label }}" class="header_color">{{ field.label }}</label>
+                                {{ field }}
+                            </div>
+                        {% endfor %}
                     </div>
                 {% endfor %}
             </div>
-            <button type="button" id="add-formset-row">Add Ingredient</button>
+            <button type="button" id="add-formset-row" class="button mb-4">Add Ingredient</button>
         </fieldset>
 
         <!-- Display recipe macros -->
-        <h3>Recipe Macros:</h3>
-        <p>Total Calories: <span id="total-calories">0</span></p>
-        <p>Total Proteins: <span id="total-proteins">0</span></p>
-        <p>Total Fats: <span id="total-fats">0</span></p>
-        <p>Total Carbs: <span id="total-carbs">0</span></p>
+        <h3 class="header_color">Recipe Macros:</h3>
+        <p class="text_color mb-3">Total Calories: <span id="total-calories">0</span></p>
+        <p class="text_color mb-3">Total Proteins: <span id="total-proteins">0</span></p>
+        <p class="text_color mb-3">Total Fats: <span id="total-fats">0</span></p>
+        <p class="text_color mb-4">Total Carbs: <span id="total-carbs">0</span></p>
 
-        <button type="submit">Save</button>
+        <button type="submit" class="button">Create Recipe</button>
     </form>
     <script>
         var attributes = {
@@ -75,7 +89,6 @@
 
 
         });//end document ready
-
 
 
     </script>

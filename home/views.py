@@ -80,6 +80,7 @@ def create_eating_plan_for_the_day(request):
 
     return render(request, 'home/select_plan_for_the_day.html', context=context)
 
+
 def delete_plan_for_the_day(request, pk):
     plan_for_the_day = get_object_or_404(UserSelectedPlan, pk=pk)
 
@@ -88,6 +89,3 @@ def delete_plan_for_the_day(request, pk):
         return redirect('home page')
 
     return render(request, 'home/delete_plan_for_the_day.html')
-
-def about(request):
-    return render(request,'home/about.html')

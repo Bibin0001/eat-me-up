@@ -1,10 +1,27 @@
 {% extends 'base.html' %}
 {% block main_content %}
-<h1>Log in:</h1>
-<form action="{% url 'login page' %}" method="POST">
-    {{ form }}
-    <button>Login</button>
-    {% csrf_token %}
-</form>
+    <h1 class="header_color">Log in:</h1>
+    <form action="{% url 'login page' %}" method="POST" class="text-center ">
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}" class="header_color mb-3">Username:</label>
+            <input type="{{ form.username.field.widget.input_type }}" name="{{ form.username.name }}"
+                   id="{{ form.username.id_for_label }}" class="form-control mb-2 input-color"
+                   placeholder="Enter your username">
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password.id_for_label }}" class="header_color mb-3" >Password:</label>
+            <input type="{{ form.password.field.widget.input_type }}" name="{{ form.password.name }}"
+                   id="{{ form.password.id_for_label }}" class="form-control mb-2 input-color"
+                   placeholder="Enter your password">
+        </div>
+
+
+        {#        {{ form }}#}
+        <button class="button mt-4">Login</button>
+        {% csrf_token %}
+    </form>
 
 {% endblock %}
+
+

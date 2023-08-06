@@ -13,8 +13,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.forms import formset_factory
 
 
-
-
 def shared_recipe_details(request, pk):
     recipe = get_object_or_404(Recipe, pk=pk)
     ingredients = recipe.recipeingredient_set.all()
@@ -102,7 +100,7 @@ def delete_recipe(request, pk):
     if request.method == 'POST':
         recipe.delete()
 
-        return redirect('recipes index page')
+        return redirect('show recipes page')
 
     context = {
         'recipe': recipe
@@ -122,8 +120,6 @@ def recipe_details(request, pk):
     return render(request, 'recipes/details_recipe.html', context=context)
 
 
-def index(request):
-    return render(request, 'recipes/index.html')
 
 
 class ShowSharedRecipes(ListView, LoginRequiredMixin):
@@ -153,11 +149,13 @@ class ShowUserRecipes(ListView, LoginRequiredMixin):
 
 @login_required
 def create_recipe(request):
-    RecipeIngredientFormSet = formset_factory(RecipeIngredientForm, extra=30, formset=RecipeIngredientFormUserSetUp)
+    RecipeIngredientFormSet = modelformset_factory(form=RecipeIngredientForm, extra=30,
+                                                   formset=RecipeIngredientFormUserSetUp,
+                                                   model=RecipeIngredient)
 
     if request.method == 'POST':
         form = RecipeForm(request.POST)
-        formset = RecipeIngredientFormSet(request.POST, user=request.user)
+        formset = RecipeIngredientFormSet(request.POST, user=request.user, queryset=RecipeIngredient.objects.none())
 
         if form.is_valid() and formset.is_valid():
 
@@ -179,13 +177,13 @@ def create_recipe(request):
                         quantity=ingredient_quantity,
                         measurements=ingredient_measurment
                     )
-            recipe.calculate_macros()
 
-            return redirect('recipes index page')
+            recipe.calculate_macros()
+            return redirect('details recipe page', pk=recipe.pk)
 
     else:
         form = RecipeForm()
-        formset = RecipeIngredientFormSet(user=request.user)
+        formset = RecipeIngredientFormSet(user=request.user, queryset=RecipeIngredient.objects.none())
 
     context = {
         'form': form,
@@ -217,7 +215,7 @@ def edit_recipe(request, pk):
                     instance.recipe = recipe
                     instance.save()
 
-        return redirect('show recipes page')
+        return redirect('details recipe page', pk=recipe.pk)
 
 
     else:

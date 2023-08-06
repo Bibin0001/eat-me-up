@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 {% block main_content %}
-    <h2>Shopping list: {{ shopping_list.title }}</h2>
+
+    <h2 class="mt-5 mb-5">Shopping list: {{ shopping_list.title }}</h2>
 
     {% for recipe, recipe_ingredients in recipes.items %}
 
-        <p>Products needed for {{ recipe.title }}</p>
+        <p class="text_color">Products needed for {{ recipe.title }}</p>
         <ul>
 
             {% for ingredient_dict in recipe_ingredients %}
@@ -23,7 +24,17 @@
         </ul>
     {% endfor %}
     {% if shopping_list.additional_info %}
-        <h2>Additional items: </h2>
-        <p>{{ shopping_list.additional_info }}</p>
+        <h2 class="mb-4 mt-4">Additional items: </h2>
+        <p class="mb-4">{{ shopping_list.additional_info }}</p>
     {% endif %}
+
+    <a href="{% url 'edit shopping list page' pk=shopping_list.pk %}">
+        <button class="button mb-3">Edit</button>
+    </a>
+
+    <a href="{% url 'delete shopping list page' pk=shopping_list.pk %}">
+
+        <button class="delete-button">Delete</button>
+    </a>
+
 {% endblock %}

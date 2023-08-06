@@ -19,3 +19,8 @@ class ShoppingListForm(forms.ModelForm):
         super(ShoppingListForm, self).__init__(*args, **kwargs)
 
         self.fields['recipes'].queryset = Recipe.objects.filter(user=user)
+
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control mb-2 input-color'
+

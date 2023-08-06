@@ -1,41 +1,105 @@
-<div class="navigation-container">
-    <ul class="nav nav-pills nav-justified">
-        <li class="nav-item">
-            <a href="{% url 'home page' %}" class="nav-link">Home </a>
-        </li>
+<style>
+    .navbar-custom-color {
+        border-bottom: 2px solid #00ceff;
+        background-color: #242931;
+    }
 
-        <li class="nav-item">
-            <a href="{% url 'account details page' %}" class="nav-link">Profile</a>
-        </li>
+    .navbar-custom-color .dropdown-menu {
+        background-color: #242931;
+        border-color: #00ceff;
+    }
 
-        <li class="nav-item">
+    .navbar-nav .nav-link.active, .navbar-nav .nav-link.show {
+        color: deeppink; /* Set the desired color */
+    }
 
-            <a href="{% url 'recipes index page' %}" class="nav-link">Recipes</a>
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'index ingredients page' %}" class="nav-link">Ingredients</a>
+    .navbar-dark .navbar-nav .nav-link:hover,
+    .navbar-dark .navbar-nav .show > .nav-link {
+        background-color: #242931;
+        border-color: deeppink;
+    }
 
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'log out page' %}" class="nav-link">Log out</a>
+    .dropdown-item:hover {
+        color: deeppink;
+        background-color: #242931;
+        border-color: deeppink;
+    }
+</style>
 
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'show shopping lists page' %} " class="nav-link">Shopping Lists</a>
 
-        </li>
-        <li class="nav-item">
-            <a href="{% url 'show eating plans page' %}" class="nav-link">Eating Plans</a>
+<nav class="navbar navbar-expand-lg navbar-custom-color">
+    <div class="container-fluid">
 
-        </li>
-        {% if user.is_staff %}
+
+        <!-- Navigation links -->
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
             <li class="nav-item">
-                <a href="{% url 'show pending recipes page' %}" class="nav-link">Approve Recipes!</a>
-
+                <a class="nav-link link_color" href="{% url 'home page' %}">Home</a>
             </li>
-        {% endif %}
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle link_color" href="#" id="recipesDropdown" role="button"
+                   data-bs-toggle="dropdown">
+                    Recipes
+                </a>
+                <ul class="dropdown-menu link_color" aria-labelledby="recipesDropdown">
+                    <li><a class="dropdown-item link_color" href="{% url 'create recipe page' %}">Create a recipe!</a>
+                    </li>
+                    <li><a class="dropdown-item link_color" href="{% url 'show recipes page' %}">Your recipes</a></li>
+                    <li><a class="dropdown-item link_color" href="{% url 'show shared recipes page' %}">Shared
+                        recipes</a></li>
+                </ul>
+            </li>
 
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle link_color" href="#" id="ingredientsDropdown" role="button"
+                   data-bs-toggle="dropdown">
+                    Ingredients
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="ingredientsDropdown">
+                    <li><a class="dropdown-item link_color" href="{% url 'index ingredients page' %}">All
+                        Ingredients</a></li>
+                    <li>
+                        <a href="{% url 'create ingredient page' %}" class="dropdown-item link_color">Add Ingredient</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle link_color" href="#" id="shoppingListsDropdown" role="button"
+                   data-bs-toggle="dropdown">
+                    Shopping Lists
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="shoppingListsDropdown">
+                    <li><a class="dropdown-item link_color" href="{% url 'create shopping list page' %}">Create a
+                        shopping list</a>
+                    </li>
+                    <li><a class="dropdown-item link_color" href="{% url 'show shopping lists page' %}">All Shopping
+                        Lists</a></li>
+                </ul>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle link_color" href="#" id="eatingPlansDropdown" role="button"
+                   data-bs-toggle="dropdown">
+                    Eating Plans
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="eatingPlansDropdown">
+                    <li><a class="dropdown-item link_color" href="{% url 'create eating plan page' %}">Create a plan</a>
+                    </li>
+                    <li><a class="dropdown-item link_color" href="{% url 'show eating plans page' %}">All Eating
+                        Plans</a></li>
+                </ul>
+            </li>
+            {% if user.is_staff %}
+                <li class="nav-item">
+                    <a class="nav-link link_color" href="{% url 'show pending recipes page' %}">Approve Recipes!</a>
+                </li>
+            {% endif %}
+            <li class="nav-item">
+                <a class="nav-link link_color" href="{% url 'account details page' %}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link link_color" href="{% url 'log out page' %}">Log out</a>
+            </li>
+        </ul>
 
-    </ul>
-
-</div>
+    </div>
+</nav>

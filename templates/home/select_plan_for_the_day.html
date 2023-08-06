@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-    <h2>Select  an eating plan for the day!</h2>
-
-    <form method="POST">
-        {{ form.as_p }}
-        <button>Save</button>
-        {% csrf_token %}
-    </form>
+    <div class="text-center">
+        <h2 class="header_color mb-5">Select an eating plan for the day!</h2>
+        <form method="POST">
+            {{ form.as_p }}
+            <button class="button mt-3">Save</button>
+            {% csrf_token %}
+        </form>
+    </div>
 {% endblock %}

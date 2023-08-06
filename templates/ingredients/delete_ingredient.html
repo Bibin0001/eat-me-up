@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block main_content %}
-    <h1>Delete recipe</h1>
-    <h4 class="header_colorc">Are you sure you want to delete the recipe "{{ recipe.title }}" ?</h4>
+
+    <h2 class="mt-4">Are you sure you want to delete {{ ingredient.name }}</h2>
 
     <div class="d-flex justify-content-between">
         <form method="POST">
@@ -10,7 +10,7 @@
             {% csrf_token %}
         </form>
 
-        <a href="{% url 'show recipes page' %}">
+        <a href="{% url 'show ingredients page' %}">
             <button class="button ms-4">Go back</button>
         </a>
     </div>

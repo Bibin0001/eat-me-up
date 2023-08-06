@@ -3,31 +3,36 @@
 {% block main_content %}
     <div>
 
-        <h1>{{ recipe.title }}</h1>
-        <p>{{ recipe.instruction }}</p>
+        <h1 class="mt-5 mb-5">{{ recipe.title }}</h1>
+        {% if recipe.instruction %}
+            <h2>Instructions</h2>
+            <p class="mb-5">{{ recipe.instruction }}</p>
 
-        <h2>Ingredients: </h2>
+        {% else %}
+            <h2 class="mb-5">No instructions</h2>
+        {% endif %}
+        <h2 class="mb-3">Ingredients </h2>
         {% for ingredient in ingredients %}
             <div>
                 {% if ingredient.measurements == "1000" %}
 
-                    <p>{{ ingredient.ingredient.name }} {{ ingredient.quantity }} kg</p>
+                    <p class="mb-3">{{ ingredient.ingredient.name }} - {{ ingredient.quantity }} kg</p>
                 {% else %}
-                    <p>{{ ingredient.ingredient.name }} {{ ingredient.quantity }} grams</p>
+                    <p class="mb-3">{{ ingredient.ingredient.name }} - {{ ingredient.quantity }} grams</p>
                 {% endif %}
             </div>
 
         {% endfor %}
 
-        <h2>Recipe macros:</h2>
-        <p>Calories: {{ recipe.calories }}</p>
-        <p>Proteins: {{ recipe.proteins }}</p>
-        <p>Carbs: {{ recipe.carbs }}</p>
-        <p>Fats: {{ recipe.fats }}</p>
+        <h2 class="mt-5">Recipe macros:</h2>
+        <p class="mt-4 mb-3">Calories: {{ recipe.calories }}</p>
+        <p class="mb-3">Proteins: {{ recipe.proteins }}</p>
+        <p class="mb-3">Carbs: {{ recipe.carbs }}</p>
+        <p class="mb-5">Fats: {{ recipe.fats }}</p>
     </div>
 
-    <a href="{% url 'edit recipe page' pk=recipe.pk %}">Edit recipe</a>
-    <a href="{% url 'delete recipe page' pk=recipe.pk %}">Delete recipe</a>
+    <a href="{% url 'edit recipe page' pk=recipe.pk %}"><button class="button mb-3">Edit recipe</button></a>
+    <a href="{% url 'delete recipe page' pk=recipe.pk %}"><button class="delete-button">Delete recipe</button></a>
 
 
 {% endblock %}

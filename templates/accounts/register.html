@@ -1,14 +1,44 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-<form action="{% url 'register page' %}" method="POST">
-    {{ form }}
-    <button type="submit">Register</button>
-    {% csrf_token %}
-</form>
-</body>
-</html>
+{#{% extends 'base.html' %}#}
+{#{% block main_content %}#}
+{#    <form action="{% url 'register page' %}" method="POST">#}
+{#        {{ form }}#}
+{#        <button type="submit">Register</button>#}
+{#        {% csrf_token %}#}
+{#    </form>#}
+{#{% endblock %}#}
+{% extends 'base.html' %}
+{% block main_content %}
+    <h1 class="header_color">Register:</h1>
+    <form action="{% url 'register page' %}" method="POST" class="text-center custom-input">
+        <div class="form-group">
+            <label for="{{ form.username.id_for_label }}" class="header_color mb-3">Username:</label>
+            <input type="{{ form.username.field.widget.input_type }}" name="{{ form.username.name }}"
+                   id="{{ form.username.id_for_label }}" class="form-control mb-2 input-color"
+                   placeholder="Enter your username">
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.email.id_for_label }}" class="header_color mb-3">Email:</label>
+            <input type="{{ form.email.field.widget.input_type }}" name="{{ form.email.name }}"
+                   id="{{ form.email.id_for_label }}" class="form-control mb-2 input-color"
+                   placeholder="Enter your email">
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password1.id_for_label }}" class="header_color mb-3">Password:</label>
+            <input type="{{ form.password1.field.widget.input_type }}" name="{{ form.password1.name }}"
+                   id="{{ form.password1.id_for_label }}" class="form-control mb-2 input-color"
+                   placeholder="Enter your password">
+        </div>
+
+        <div class="form-group">
+            <label for="{{ form.password2.id_for_label }}" class="header_color mb-3">Confirm Password:</label>
+            <input type="{{ form.password2.field.widget.input_type }}" name="{{ form.password2.name }}"
+                   id="{{ form.password2.id_for_label }}" class="form-control mb-2 input-color"
+                   placeholder="Confirm your password">
+        </div>
+
+        <button class="button mt-4">Register</button>
+        {% csrf_token %}
+    </form>
+{% endblock %}

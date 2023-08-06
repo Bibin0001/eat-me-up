@@ -1,3 +1,28 @@
-Will this work?
+YOU HAVE TO DO THIS IN ONE DAY !!!
+YOU DONT HAVE MUCH TIME FOR THE PROJECT LEFT
+DON'T FUCK IT UP PLEASE
 
-Testing to see if I can commit to the github repo
+
+
+Change the buttons colors, and make the shape better, add a delete button for deleting buttons.
+
+Fix up all pages
+
+Change the dropdown menu when hovered to change to a different color maybe only the border to be changed
+
+Change the input when typing to pink borders as well the dropdowns
+
+Create a footer
+
+Fix create shopping list
+
+Add delete function to shopping list and ingredient
+
+Fix eating plan js as well python code
+
+Make the profile log out
+
+Make the ingredients recipes display properly 2 items on a row maybe useful link : https://getbootstrap.com/docs/5.3/utilities/spacing/#gap
+
+Make the admin interface page
+

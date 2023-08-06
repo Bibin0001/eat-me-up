@@ -1,20 +1,54 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-    <h2>Create your eating plan!</h2>
+    <h2 class="header_color">Create your eating plan!</h2>
 
-    <form method="POST">
-        {{ form.as_p }}
-        <button>Create</button>
+    <form action={% url 'create eating plan page' %}  method="POST" class="text-center custom-input">
         {% csrf_token %}
+
+        <label for="{{ form.title.id_for_label }}" class="header_color mb-3">Title:</label>
+        <input type="{{ form.title.field.widget.input_type }}" name="{{ form.title.name }}"
+               id="{{ form.title.id_for_label }}" class="form-control mb-2 input-color"
+               placeholder="Enter your title">
+
+
+        <label for="{{ form.breakfast.id_for_label }}" class="header_color mb-3">Breakfast:</label>
+        <select name="{{ form.breakfast.name }}" id="{{ form.breakfast.id_for_label }}"
+                class="form-control mb-2 input-color">
+            {% for choice in form.breakfast.field.choices %}
+                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+
+
+        <label for="{{ form.lunch.id_for_label }}" class="header_color mb-3">Lunch:</label>
+        <select name="{{ form.lunch.name }}" id="{{ form.lunch.id_for_label }}"
+                class="form-control mb-2 input-color">
+            {% for choice in form.lunch.field.choices %}
+                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+
+
+        <label for="{{ form.dinner.id_for_label }}" class="header_color mb-3">Dinner:</label>
+        <select name="{{ form.dinner.name }}" id="{{ form.dinner.id_for_label }}"
+                class="form-control mb-2 input-color">
+            {% for choice in form.dinner.field.choices %}
+                <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+            {% endfor %}
+        </select>
+
+
+        <button class="button mt-4 mb-5">Create eating plan</button>
     </form>
 
+
     <div>
-        <h3>Total macros of the eating plan:</h3>
-        <p>Total Calories: <span id="total-calories">0</span></p>
-        <p>Total Proteins: <span id="total-proteins">0</span></p>
-        <p>Total Fats: <span id="total-fats">0</span></p>
-        <p>Total Carbs: <span id="total-carbs">0</span></p>
+        <h3 class="header_color mb-4">Total macros of the eating plan:</h3>
+        <p class="text_color">Total Calories: <span id="total-calories">0</span></p>
+        <p class="text_color">Total Proteins: <span id="total-proteins">0</span></p>
+        <p class="text_color">Total Fats: <span id="total-fats">0</span></p>
+        <p class="text_color">Total Carbs: <span id="total-carbs">0</span></p>
 
     </div>
 
@@ -35,48 +69,6 @@
 
             document.addEventListener('change', calculateMacros)
 
-
-            function calculateMacros() {
-
-                var total_calories = 0
-                var total_proteins = 0
-                var total_fats = 0
-                var total_carbs = 0
-
-                var breakfast_id = $('#id_breakfast').val()
-                var lunch_id = $('#id_lunch').val()
-                var dinner_id = $('#id_dinner').val()
-
-                var breakfast_macros = [0, 0, 0, 0]
-                var lunch_macros = [0, 0, 0, 0]
-                var dinner_macros = [0, 0, 0, 0]
-                // Gets all recipe macros of the chosen recipe. 0: calories, 1: proteins, 2: fats, 3: carbs
-                if (breakfast_id) {
-
-                    breakfast_macros = [parseFloat(attributes[breakfast_id][0]), parseFloat(attributes[breakfast_id][1]), parseFloat(attributes[breakfast_id][2]), parseFloat(attributes[breakfast_id][3])]
-                }
-
-                if (lunch_id) {
-
-                    lunch_macros = [parseFloat(attributes[lunch_id][0]), parseFloat(attributes[lunch_id][1]), parseFloat(attributes[lunch_id][2]), parseFloat(attributes[lunch_id][3])]
-                }
-
-                if (dinner_id) {
-
-                    dinner_macros = [parseFloat(attributes[dinner_id][0]), parseFloat(attributes[dinner_id][1]), parseFloat(attributes[dinner_id][2]), parseFloat(attributes[dinner_id][3])]
-                }
-
-                total_calories = breakfast_macros[0] + lunch_macros[0] + dinner_macros[0]
-                total_proteins = breakfast_macros[1] + lunch_macros[1] + dinner_macros[1]
-                total_fats = breakfast_macros[2] + lunch_macros[2] + dinner_macros[2]
-                total_carbs = breakfast_macros[3] + lunch_macros[3] + dinner_macros[3]
-
-
-                $('#total-calories').text(total_calories);
-                $('#total-proteins').text(total_proteins);
-                $('#total-fats').text(total_fats);
-                $('#total-carbs').text(total_carbs);
-            }
 
         });
     </script>

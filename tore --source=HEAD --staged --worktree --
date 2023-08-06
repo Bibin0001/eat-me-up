@@ -1,0 +1,38 @@
+[33m65b9a76[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{0}: commit: Made some css and connected postgres
+[33m04b70cf[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{1}: commit: Editet settings
+[33m9e63693[m HEAD@{2}: commit: Installed martor and gunicorn
+[33m3e30a3b[m HEAD@{3}: commit: Made the eating plan for the day
+[33mf36703e[m HEAD@{4}: commit: Made all the eating plan functionality
+[33me739ec2[m HEAD@{5}: commit: Fixed creating plan
+[33m03ffcb9[m HEAD@{6}: commit: Fixed creation of eating plan js
+[33m53e8a20[m HEAD@{7}: pull origin main: Merge made by the 'ort' strategy.
+[33mdea9970[m HEAD@{8}: commit (merge): Eating plan
+[33m9b759ad[m HEAD@{9}: checkout: moving from testing-branch to main
+[33m57a0117[m[33m ([m[1;32mtesting-branch[m[33m)[m HEAD@{10}: commit: asdq
+[33m8ae4b6d[m HEAD@{11}: reset: moving to HEAD
+[33m8ae4b6d[m HEAD@{12}: reset: moving to 8ae4b6d09ac082aacf762ce0a73f92ef3e516e9a
+[33m9b759ad[m HEAD@{13}: reset: moving to HEAD
+[33m9b759ad[m HEAD@{14}: checkout: moving from main to testing-branch
+[33m9b759ad[m HEAD@{15}: reset: moving to 9b759adebaa261b1a724d955704108bb33a5d532
+[33m2212428[m HEAD@{16}: commit: changes
+[33m5996f25[m HEAD@{17}: checkout: moving from testing-branch to main
+[33m9b759ad[m HEAD@{18}: checkout: moving from 5996f2582b48299de61e35d4f7caf61c517dd3aa to testing-branch
+[33m5996f25[m HEAD@{19}: checkout: moving from testing-branch to origin/main
+[33m9b759ad[m HEAD@{20}: checkout: moving from 8a8d088269eb299ee52d8050a12dbd6fc016b680 to testing-branch
+[33m8a8d088[m HEAD@{21}: commit: 123123
+[33m5996f25[m HEAD@{22}: checkout: moving from testing-branch to origin/main
+[33m9b759ad[m HEAD@{23}: commit: Edit meal plan
+[33m8ae4b6d[m HEAD@{24}: checkout: moving from testing-branch to testing-branch
+[33m8ae4b6d[m HEAD@{25}: checkout: moving from main to testing-branch
+[33m5996f25[m HEAD@{26}: reset: moving to HEAD
+[33m5996f25[m HEAD@{27}: checkout: moving from testing-branch to main
+[33m8ae4b6d[m HEAD@{28}: commit: Made the base of an eating_plan
+[33m5996f25[m HEAD@{29}: checkout: moving from testing-branch to testing-branch
+[33m5996f25[m HEAD@{30}: checkout: moving from main to testing-branch
+[33m5996f25[m HEAD@{31}: checkout: moving from testing-branch to main
+[33m5996f25[m HEAD@{32}: checkout: moving from main to testing-branch
+[33m5996f25[m HEAD@{33}: checkout: moving from testing-branch to main
+[33m5996f25[m HEAD@{34}: checkout: moving from main to testing-branch
+[33m5996f25[m HEAD@{35}: commit: Testing
+[33mbc7f3b3[m HEAD@{36}: Branch: renamed refs/heads/main to refs/heads/main
+[33mbc7f3b3[m HEAD@{38}: commit: first commit

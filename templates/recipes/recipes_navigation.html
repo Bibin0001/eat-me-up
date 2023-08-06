@@ -1,24 +1,39 @@
-<div class="navigation-container">
+{#<div class="navigation-container">#}
+{##}
+{#    <ul class="nav nav-pills nav-justified">#}
+{#        <li class="nav-item">#}
+{#            <a href="{% url 'create recipe page' %}">Create a recipe! </a>#}
+{##}
+{#        </li>#}
+{##}
+{#        <li class="nav-item">#}
+{#            <a href="{% url 'show recipes page' %}">Your recipes</a>#}
+{##}
+{##}
+{#        </li>#}
+{##}
+{#        <li class="nav-item">#}
+{#            <a href="{% url 'show shared recipes page' %}">Shared recipes</a>#}
+{##}
+{#        </li>#}
+{##}
+{##}
+{#    </ul>#}
+{#</div>#}
 
-    <ul class="nav nav-pills nav-justified">
-        <li class="nav-item">
-            <a href="{% url 'create recipe page' %}">Create a recipe! </a>
-
-        </li>
-
-        <li class="nav-item">
-            <a href="{% url 'show recipes page' %}">Your recipes</a>
-
-
-        </li>
-
-        <li class="nav-item">
-            <a href="{% url 'show shared recipes page' %}">Shared recipes</a>
-
-        </li>
-
-
-    </ul>
+<div class="card navigation-container">
+    <div class="card-body">
+        <ul class="nav nav-pills nav-justified">
+            <li class="nav-item">
+                <a href="{% url 'create recipe page' %}" class="nav-link">Create a recipe!</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'show recipes page' %}" class="nav-link">Your recipes</a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'show shared recipes page' %}" class="nav-link">Shared recipes</a>
+            </li>
+        </ul>
+    </div>
 </div>
-
 

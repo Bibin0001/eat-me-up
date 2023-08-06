@@ -8,14 +8,15 @@ from .models import Recipe, RecipeIngredient, Ingredient
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ['title', 'photo', 'instruction', 'share']
+        fields = ['title',  'instruction', 'share']
 
-        exclude = ['user', 'approved_for_sharing']
+        exclude = ['user', 'approved_for_sharing', 'photo']
 
     def __init__(self, *args, **kwargs):
         super(RecipeForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
+            visible.field.widget.attrs['class'] = 'form-control mb-2 input-color'
+
 
 
 class RecipeIngredientForm(forms.ModelForm):
@@ -38,14 +39,13 @@ class RecipeIngredientForm(forms.ModelForm):
         # Set the 'name' attribute for the ingredient field's widget
         self.fields['ingredient'].widget.attrs['name'] = 'nameee'
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control'
+            visible.field.widget.attrs['class'] = 'form-control mb-2 input-color'
 
-        self.fields['ingredient'].widget.attrs['class'] = 'ingredients'
+
+        self.fields['ingredient'].widget.attrs['class'] += 'ingredients form-select input-color'
         self.fields['ingredient'].widget.attrs['dataChange'] = 'updateRecipeMacros'
         self.fields['measurements'].widget.attrs['dataChange'] = 'updateRecipeMacros'
-        # self.fields['ingredient'].widget.attrs['style'] = 'display:none'
-        # self.fields['quantity'].widget.attrs['style'] = 'display:none'
-        # self.fields['measurements'].widget.attrs['style'] = 'display:none'
+
 
 
 class RecipeIngredientFormUserSetUp(BaseModelFormSet):

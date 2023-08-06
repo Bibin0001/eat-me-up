@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -38,7 +38,12 @@ class EditShoppingList(UpdateView, LoginRequiredMixin):
     model = ShoppingList
     form_class = ShoppingListForm
     template_name = 'shopping_list/edit_shopping_list.html'
-    success_url = reverse_lazy('show shopping lists page')
+    success_url = reverse_lazy('show shopping list page')
+
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+
+        return reverse_lazy('show shopping list page', kwargs={'pk': pk})
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -67,7 +72,6 @@ def see_shopping_list(request, pk):
         if recipe not in ingredients:
             ingredients[recipe] = []
 
-
         for recipe_ingredient in recipe.recipeingredient_set.all():
             ingredient = recipe_ingredient.ingredient
             quantity = recipe_ingredient.quantity
@@ -77,7 +81,6 @@ def see_shopping_list(request, pk):
 
             ingredients[recipe].append(ingredient_info)
 
-
     print(ingredients)
 
     context = {
@@ -85,3 +88,13 @@ def see_shopping_list(request, pk):
         'shopping_list': shopping_list
     }
     return render(request, 'shopping_list/show_shopping_list.html', context=context)
+
+
+def delete_shopping_list(request, pk):
+    shopping_list = get_object_or_404(ShoppingList, pk=pk)
+
+    if request.method == 'POST':
+        shopping_list.delete()
+        return redirect('show shopping lists page')
+
+    return render(request, 'shopping_list/delete_shopping_list.html', context={'list': shopping_list})

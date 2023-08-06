@@ -1,20 +1,149 @@
 
 html body {
-    background-color: #434c5e;
+    /*background-color: #292D3E;*/
+    background-color: #242931;
+
+    /* Other styles... */
 }
-html a{
+
+/* Other styles... */
+
+
+html a {
+    color: #00FFFF;
     text-decoration: none;
+    transition: color 0.3s ease-in-out;
 }
-/*.link_color {*/
-/*    color: #88c0d0;*/
-/*}*/
 
-/*.header_color {*/
-/*    color: #eceff4;*/
-/*}*/
+html a:hover {
 
-/*.text_color {*/
+    color: #5e81ac;
+}
 
-/*    color: #d8dee9;*/
-/*}*/
+.link_color {
+    color: #00FFFF;
+}
 
+.link_color:hover {
+    color: deeppink;
+}
+
+.header_color {
+    color: #eceff4;
+    font-weight: bold;
+}
+
+.text_color {
+
+    color: #d8dee9;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+
+    background-color: #242931;
+    color: #FFF;
+    font-weight: bold;
+    border: 2px solid #00FFFF;
+    cursor: pointer;
+    transition: border-color 0.3s ease-in-out;
+    border-radius: 3px;
+}
+
+.delete-button {
+    border: 2px solid hotpink;
+    transition: border-color 0.3s ease-in-out;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #FFF;
+    background-color: #242931;
+    padding: 10px 20px;
+    display: inline-block;
+}
+
+.delete-button:hover {
+
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 2px solid #fa004c;
+}
+
+.button:hover {
+    background-color: #242931;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    border: 2px solid hotpink;
+}
+
+
+.input-color.form-control {
+    background-color: #242931;
+    color: #eceff4;
+    border-color: #00ceff;
+}
+
+.custom-input.form-control {
+    caret-color: #eceff4;
+}
+
+
+.input-color.form-control:focus {
+    background-color: #242931; /* Change the background color when focused */
+    color: #eceff4; /* Change the text color when focused */
+    border-color: hotpink; /* Change the border color when focused */
+}
+
+.input-color.form-control option:checked {
+    border-color: hotpink;
+    background-color: #242931;
+    color: #eceff4;
+}
+
+.input-color.form-control::placeholder {
+    color: #eceff4;
+    font-weight: bold;
+}
+
+
+html select {
+    background-color: #242931;
+    color: #eceff4;
+    border: 1px solid #00ceff;
+    border-radius: 5px;
+
+}
+
+html p {
+    color: #d8dee9;
+}
+
+html h1 {
+    color: #eceff4;
+    font-weight: bold;
+}
+
+html h2 {
+    color: #eceff4;
+    font-weight: bold;
+}
+
+html h3 {
+    color: #eceff4;
+    font-weight: bold;
+}
+
+html li {
+    color: #d8dee9;
+}
+
+.navbar-color {
+    background-color: #242931;
+    height: 60px;
+    border-bottom: 2px solid #00ceff;
+}
+
+.nav-pills.centered-nav > li {
+    flex: 1;
+    text-align: center;
+}

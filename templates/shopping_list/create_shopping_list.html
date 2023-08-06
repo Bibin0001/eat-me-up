@@ -1,12 +1,26 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-    <h2>Create your shopping list </h2>
+    <h2 class="mt-5 mb-5">Create your shopping list</h2>
 
-    <form method="POST">
-        {{ form.as_div}}
-        <button>Save</button>
+    <form method="POST" class="text-center custom-input">
         {% csrf_token %}
-    </form>
 
+        <div class="form-group mb-4">
+            <label for="{{ form.title.id_for_label }}" class="header_color">Title</label>
+            {{ form.title }}
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="{{ form.recipes.id_for_label }}" class="header_color">Recipes</label>
+            {{ form.recipes }}
+        </div>
+
+        <div class="form-group mb-4">
+            <label for="{{ form.additional_info.id_for_label }}"class="header_color">Additional Items</label>
+            {{ form.additional_info }}
+        </div>
+
+        <button class="button">Save</button>
+    </form>
 {% endblock %}

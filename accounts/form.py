@@ -21,6 +21,12 @@ class AccountCreation(forms.ModelForm):
         fields = ['weight', 'height', 'age', 'gender', 'goal', 'activity']
         exclude = ['calories', 'protein', 'carbs', 'fats', 'user', ]
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['gender'].widget.attrs['class'] = 'select-style'
+        self.fields['goal'].widget.attrs['class'] = 'select-style'
+        self.fields['activity'].widget.attrs['class'] = 'select-style'
+
 
 class AccountChangeMacros(forms.ModelForm):
     class Meta:
@@ -29,3 +35,8 @@ class AccountChangeMacros(forms.ModelForm):
         fields = ['calories', 'protein', 'carbs', 'fats', ]
         exclude = ['weight', 'height', 'age', 'gender', 'goal', 'activity', 'user']
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control mb-2 input-color'

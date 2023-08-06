@@ -1,10 +1,9 @@
 from django.urls import path, include
-from .views import index, create_recipe, edit_recipe, ShowUserRecipes, recipe_details, delete_recipe, \
+from .views import create_recipe, edit_recipe, ShowUserRecipes, recipe_details, delete_recipe, \
     ShowPendingRecipes, \
     approve_recipe, ShowSharedRecipes, shared_recipe_details
 
 urlpatterns = [
-    path('', index, name='recipes index page'),
     path('create_recipe', create_recipe, name='create recipe page'),
     path('show_recipes', ShowUserRecipes.as_view(), name='show recipes page'),
     path('edit_recipe/<int:pk>', edit_recipe, name='edit recipe page'),
