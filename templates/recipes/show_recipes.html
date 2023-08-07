@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block main_content %}
+
     {% if recipes %}
+        <h1 class="mb-4 mt-5">Your recipes</h1>
         {% for recipe in recipes %}
 
             <div>
-                <img src="{% static 'default_recipe.png' %}" alt="default recipe image">
-                <p>Recipe name: {{ recipe.title }}</p>
-                <a href="{% url 'edit recipe page' pk=recipe.pk %} ">Edit your recipe!</a>
-                <a href="{% url 'details recipe page' pk=recipe.pk %}">Recipe Details!</a>
+                <a href="{% url 'details recipe page' pk=recipe.pk %}">
+
+                    <p class="header_color mb-4">{{ recipe.title }}</p>
+                </a>
             </div>
 
         {% endfor %}

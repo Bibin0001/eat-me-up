@@ -1,10 +1,12 @@
 {% extends 'base.html' %}
 {% block main_content %}
-    <form action="" method="POST">
-        {{ form.as_p }}
-        <button>Edit </button>
-        {% csrf_token %}
+    <div class="text-center">
+        <h1 class="mt-5 mb-4">Edit {{ ingredient.name }}</h1>
+        <form action="" method="POST">
+            {{ form.as_p }}
+            <button class="button mt-4">Edit</button>
+            {% csrf_token %}
+        </form>
+    </div>
 
-
-    </form>
-{% endblock  %}
+{% endblock %}

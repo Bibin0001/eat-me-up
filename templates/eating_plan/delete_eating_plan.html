@@ -1,16 +1,19 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
+    <div class="text-center">
 
-    <h2>Are you sure you want to delete {{ plan.title }}?</h2>
 
-    <form method="POST">
-        <button>Delete</button>
-        {% csrf_token %}
-    </form>
+        <h2 class="mb-5">Are you sure you want to delete {{ plan.title }}?</h2>
 
-    <a href="{% url 'show eating plans page' %}">
-        <button>No</button>
-    </a>
+        <form method="POST" style="display: inline;">
+            <button class="delete-button">Delete</button>
+            {% csrf_token %}
+        </form>
 
+        <a href="{% url 'show eating plans page' %}" style="display: inline-block;" class="ms-4">
+            <button class="button">Go back</button>
+        </a>
+
+    </div>
 {% endblock %}

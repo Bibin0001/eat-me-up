@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
+    <h1 class="mt-4">Ingredients</h1>
     {% for ingredient in ingredients %}
         <div>
-            <p>Ingredient: {{ ingredient.name }}</p>
-            <a href="{% url 'edit ingredient page' pk=ingredient.pk %}">Edit ingredient</a>
+            <a href="{% url 'details ingredient page' pk=ingredient.pk %}">
+
+                <p>{{ ingredient.name }}</p>
+            </a>
 
         </div>
     {% endfor %}

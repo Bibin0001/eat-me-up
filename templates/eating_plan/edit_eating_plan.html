@@ -1,24 +1,34 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
+    <style>
+        form p label{
+            color: #eceff4;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+    </style>
+    <div class="text-center">
 
-    <form method="POST">
-        {{ form.as_p }}
-        <button>Edit</button>
+        <h2 class="mt-5 mb-4"> Edit {{ plan.title }}</h2>
+        <form method="POST">
+            {{ form.as_p }}
+            <button class="button mt-2 mb-4">Edit</button>
 
-        {% csrf_token %}
-    </form>
+            {% csrf_token %}
+        </form>
 
-    <div>
-        <h3>Total macros of the eating plan:</h3>
-        <p>Total Calories: <span id="total-calories">0</span></p>
-        <p>Total Proteins: <span id="total-proteins">0</span></p>
-        <p>Total Fats: <span id="total-fats">0</span></p>
-        <p>Total Carbs: <span id="total-carbs">0</span></p>
+        <div>
+            <h3 class="mb-4">Macros of the eating plan:</h3>
+            <p>Total Calories: <span id="total-calories">0</span></p>
+            <p>Total Proteins: <span id="total-proteins">0</span></p>
+            <p>Total Fats: <span id="total-fats">0</span></p>
+            <p>Total Carbs: <span id="total-carbs">0</span></p>
+
+        </div>
+
 
     </div>
-
-
     <script>
         var attributes = {
         {% for recipe in recipes %}

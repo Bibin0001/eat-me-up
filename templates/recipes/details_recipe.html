@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-    <div>
+    <div class="text-center">
 
         <h1 class="mt-5 mb-5">{{ recipe.title }}</h1>
         {% if recipe.instruction %}
-            <h2>Instructions</h2>
+            <h2 class="mb-4">Instructions</h2>
             <p class="mb-5">{{ recipe.instruction }}</p>
 
         {% else %}

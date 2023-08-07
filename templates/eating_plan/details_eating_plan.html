@@ -1,63 +1,55 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-    <div>
-        <h1>Plan {{ plan.title }}</h1>
+    <div class="text-center">
 
-        <h3>
-            Breakfast meal: {{ plan.breakfast.title }}
-        </h3>
+        <div>
+            <h1 class="mt-5 mb-4">{{ plan.title }}</h1>
 
-        <h3>
-            Lunch meal: {{ plan.lunch.title }}
-        </h3>
+            <h2 class="mb-4">Meals:</h2>
 
-        <h3>
-            Dinner meal: {{ plan.dinner.title }}
-        </h3>
+            <p class="mb-4 header_color">
+                Breakfast meal: {{ plan.breakfast.title }}
+            </p>
 
+            <p class="mb-4 header_color">
+                Lunch meal: {{ plan.lunch.title }}
+            </p>
+
+            <p class="header_color mb-5">
+                Dinner meal: {{ plan.dinner.title }}
+            </p>
+
+
+        </div>
+
+        <div>
+            <h3 class="mb-4">Plan calories</h3>
+            <p>
+                <strong>Calories</strong>: {{ plan.total_calories }}
+            </p>
+
+            <p>
+                <strong>Proteins</strong>: {{ plan.total_proteins }}
+            </p>
+
+            <p>
+                <strong>Carbs</strong>: {{ plan.total_carbs }}
+            </p>
+
+            <p class="mb-5">
+                <strong>Fats</strong>: {{ plan.total_fats }}
+            </p>
+        </div>
+
+
+        <a href="{% url 'edit eating plan page' pk=plan.pk %}">
+            <button class="button">Edit</button>
+        </a>
+
+        <a href="{% url 'delete eating plan page' pk=plan.pk %}">
+            <button class="delete-button ms-4">Delete</button>
+        </a>
 
     </div>
-
-    <div>
-        <h3>Calories taken for the day:</h3>
-        <ul>
-            <li>
-                <p>
-                    <strong>Calories</strong>: {{ plan.total_calories }}
-                </p>
-            </li>
-
-            <li>
-                <p>
-                    <strong>Proteins</strong>: {{ plan.total_proteins}}
-                </p>
-            </li>
-
-            <li>
-                <p>
-                    <strong>Carbs</strong>: {{ plan.total_carbs}}
-                </p>
-            </li>
-
-            <li>
-                <p>
-                    <strong>Fats</strong>: {{ plan.total_fats}}
-                </p>
-            </li>
-        </ul>
-    </div>
-
-
-
-
-
-
-    <a href="{% url 'edit eating plan page' pk=plan.pk %}">
-        <button>Edit</button>
-    </a>
-
-    <a href="{% url 'delete eating plan page' pk=plan.pk %}">
-        <button>Delete</button>
-    </a>
 {% endblock %}

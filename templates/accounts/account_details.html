@@ -1,30 +1,32 @@
 {% extends 'base.html' %}
 {% block main_content %}
-    <h1 class="mt-5">Profile details: </h1>
-    <div id="profile-details" class="mt-3">
-        <p><strong>Name: {{ request.user.username }}</strong> <span id="name"></span></p>
-        <p><strong>Height: {{ account.height }}cm:</strong> <span id="height"></span></p>
-        <p><strong>Weight: {{ account.weight }}kg:</strong> <span id="weight"></span></p>
-        <p><strong>Gender: {{ account.gender }}</strong> <span id="gender"></span></p>
-        <p><strong>Activity Level: {{ account.activity }}</strong> <span id="activity-level"></span></p>
-        <p><strong>Goals: {{ account.goal }}</strong> <span id="goals"></span></p>
+    <div class="text-center">
+
+        <h1 class="mt-5">Profile details: </h1>
+        <div id="profile-details" class="mt-3">
+            <p><strong>Name: {{ request.user.username }}</strong> <span id="name"></span></p>
+            <p><strong>Height: {{ account.height }}cm:</strong> <span id="height"></span></p>
+            <p><strong>Weight: {{ account.weight }}kg:</strong> <span id="weight"></span></p>
+            <p><strong>Gender: {{ account.gender }}</strong> <span id="gender"></span></p>
+            <p><strong>Activity Level: {{ account.activity }}</strong> <span id="activity-level"></span></p>
+            <p><strong>Goals: {{ account.goal }}</strong> <span id="goals"></span></p>
+        </div>
+
+        <a href="{% url 'account edit page' %}" class="mt-3">
+            <button class="button mt-4">Edit profile</button>
+        </a>
+
+        <h2 class="mt-5">Daily macros: </h2>
+        <div class="mt-3">
+                <p class="mb-2">Calories : {{ account.calories }}</p>
+                <p class="mb-2">Proteins: {{ account.protein }}</p>
+                <p class="mb-2">Carbohydrates: {{ account.carbs }}</p>
+                <p class="mb-2">Fats: {{ account.fats }}</p>
+
+        </div>
+        <a href="{% url 'account macros edit page' %}">
+            <button class="button mt-4">Change macros</button>
+        </a>
+
     </div>
-
-    <a href="{% url 'account edit page' %}" class="mt-3">
-        <button class="button">Edit profile</button>
-    </a>
-
-    <h2 class="mt-5">Daily macros: </h2>
-    <div class="mt-3">
-        <ul>
-            <li class="mb-2">Calories : {{ account.calories }}</li>
-            <li class="mb-2">Proteins: {{ account.protein }}</li>
-            <li class="mb-2">Carbohydrates: {{ account.carbs }}</li>
-            <li class="mb-2">Fats: {{ account.fats }}</li>
-        </ul>
-
-    </div>
-    <p class="mt-3">If you don't like your macros you can change them <a href="{% url 'account macros edit page' %}">here</a>
-    </p>
-
 {% endblock %}

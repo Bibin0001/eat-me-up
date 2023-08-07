@@ -23,9 +23,12 @@ class AccountCreation(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['gender'].widget.attrs['class'] = 'select-style'
-        self.fields['goal'].widget.attrs['class'] = 'select-style'
-        self.fields['activity'].widget.attrs['class'] = 'select-style'
+        for visible in self.visible_fields():
+            visible.field.widget.attrs['class'] = 'form-control mb-2 input-color'
+
+        self.fields['gender'].widget.attrs['class'] = 'select-style form-control mb-2 input-color'
+        self.fields['goal'].widget.attrs['class'] = 'select-style form-control mb-2 input-color'
+        self.fields['activity'].widget.attrs['class'] = 'select-style form-control mb-2 input-color'
 
 
 class AccountChangeMacros(forms.ModelForm):

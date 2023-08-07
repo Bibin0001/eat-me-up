@@ -27,6 +27,7 @@
         <h2 class="mb-4 mt-4">Additional items: </h2>
         <p class="mb-4">{{ shopping_list.additional_info }}</p>
     {% endif %}
+    <div class="d-flex justify-content-between">
 
     <a href="{% url 'edit shopping list page' pk=shopping_list.pk %}">
         <button class="button mb-3">Edit</button>
@@ -34,7 +35,8 @@
 
     <a href="{% url 'delete shopping list page' pk=shopping_list.pk %}">
 
-        <button class="delete-button">Delete</button>
+        <button class="delete-button ms-3">Delete</button>
     </a>
 
+    </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.db.models import Q
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic import FormView, CreateView
 from .models import Ingredient
@@ -9,15 +9,18 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 # Create your views here.
-def home(request):
-    return render(request, 'ingredients/index.html')
 
 
 class EditIngredient(UpdateView, LoginRequiredMixin):
     model = Ingredient
     form_class = IngredientForm
     template_name = 'ingredients/edit_ingredient.html'
-    success_url = reverse_lazy('index ingredients page')
+    success_url = reverse_lazy('details ingredient page')
+
+    def get_success_url(self):
+        pk = self.kwargs['pk']
+
+        return reverse_lazy('details ingredient page', kwargs={'pk': pk})
 
     def form_valid(self, form):
         ingredient = form.save(commit=False)
@@ -31,6 +34,7 @@ class CreateIngredient(CreateView, LoginRequiredMixin):
     form_class = IngredientForm
     template_name = 'ingredients/create_ingredient.html'
     success_url = reverse_lazy('index ingredients page')
+
     def form_valid(self, form):
         ingredient = form.save(commit=False)
         ingredient.user = self.request.user
@@ -47,22 +51,22 @@ class ShowIngredients(ListView, LoginRequiredMixin):
         return Ingredient.objects.filter(Q(user=self.request.user) | Q(user=None))
 
 
-def create_ingredient(request):
-    if request.method == 'POST':
-        form = IngredientForm(request.POST)
+def ingredient_details(request, pk):
+    ingredient = get_object_or_404(Ingredient, pk=pk)
 
-        if form.is_valid():
-            ingredient = form.save(commit=False)
+    return render(request, 'ingredients/details_ingredient.html', context={'ingredient': ingredient})
 
-            ingredient.user = request.user
 
-            ingredient.save()
+def delete_ingredient(request, pk):
+    ingredient = get_object_or_404(Ingredient, pk=pk)
 
-            return redirect('index ingredients page')
+    if ingredient.user == request.user:
+        if request.method == 'POST':
+            ingredient.delete()
+            return redirect('show ingredients page')
+
+        return render(request, 'ingredients/delete_ingredient.html', context={'ingredient': ingredient})
+
+
     else:
-        form = IngredientForm
-
-    context = {
-        'form': form
-    }
-    return render(request, 'ingredients/create_ingredient.html', context=context)
+        return render(request, 'ingredients/cant_delete_ingredient.html', context={'ingredient': ingredient})

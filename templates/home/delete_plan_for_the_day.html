@@ -1,14 +1,20 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-    <h2>Remove plan for the day</h2>
+    <div class="text-center">
 
-    <form method="POST">
-        <button>Remove</button>
-        {% csrf_token %}
-    </form>
+        <h2 class="mb-5">Remove plan for the day</h2>
+        <div class="d-flex justify-content-center">
+            <form method="POST">
+                <button class="delete-button mt-3">Remove</button>
+                {% csrf_token %}
+            </form>
 
-    <a href="{% url 'home page' %}">
-        <button>Go back</button>
-    </a>
+            <a href="{% url 'home page' %}">
+                <button class="button ms-3 mt-3">Go back</button>
+            </a>
+        </div>
+
+
+    </div>
 {% endblock %}

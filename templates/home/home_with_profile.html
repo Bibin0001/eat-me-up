@@ -14,24 +14,21 @@
         <div class="d-flex justify-content-center flex-column align-items-center mb-3">
             <p>Breakfast: {{ plan.plan.breakfast.title }}</p>
             <p>Lunch: {{ plan.plan.lunch.title }}</p>
-            <p>Dinner: {{ plan.plan.dinner.title }}</p>
+            <p class="mb-4">Dinner: {{ plan.plan.dinner.title }}</p>
 
             <h2 class="header_color mb-3">Plan macros: </h2>
-            <ul>
-                <li class="text_color mb-1">
-                    Calories: {{ plan.plan.total_calories }}
-                </li>
-
-                <li class="text_color mb-1">
-                    Proteins: {{ plan.plan.total_proteins }}
-                </li>
-                <li class="text_color mb-1">
-                    Carbs: {{ plan.plan.total_carbs }}
-                </li>
-                <li class="text_color mb-1">
-                    Fats: {{ plan.plan.total_fats }}
-                </li>
-            </ul>
+            <p>
+                Calories: {{ plan.plan.total_calories }}
+            </p>
+            <p>
+                Proteins: {{ plan.plan.total_proteins }}
+            </p>
+            <p>
+                Carbs: {{ plan.plan.total_carbs }}
+            </p>
+            <p>
+                Fats: {{ plan.plan.total_fats }}
+            </p>
 
         </div>
         <a href="{% url 'change eating plan for the day page' pk=plan.pk %}" class="link_color">
@@ -39,14 +36,14 @@
         </a>
 
         <a href="{% url 'delete eating plan for the day page' pk=plan.pk %}" class="link_color">
-            <button class="button">Remove plan</button>
+            <button class="delete-button ms-4">Remove plan</button>
         </a>
 
     {% else %}
         <div class="d-flex justify-content-center flex-column align-items-center">
             <h3 class="header_color text-center">You don't have an eating plan for the day</h3>
             <a href="{% url 'select eating plan for the day page' %}" class="link_color ">
-                <button class="button text-center mt-4 mb-2">Create a plan</button>
+                <button class="button text-center mt-4 mb-2">Select a plan</button>
             </a>
         </div>
 

@@ -24,6 +24,10 @@
         background-color: #242931;
         border-color: deeppink;
     }
+
+    .navbar-nav .nav-item{
+        margin-right: 40px;
+    }
 </style>
 
 
@@ -44,7 +48,7 @@
                 <ul class="dropdown-menu link_color" aria-labelledby="recipesDropdown">
                     <li><a class="dropdown-item link_color" href="{% url 'create recipe page' %}">Create a recipe!</a>
                     </li>
-                    <li><a class="dropdown-item link_color" href="{% url 'show recipes page' %}">Your recipes</a></li>
+                    <li><a class="dropdown-item link_color" href="{% url 'show recipes page' %}">Recipes</a></li>
                     <li><a class="dropdown-item link_color" href="{% url 'show shared recipes page' %}">Shared
                         recipes</a></li>
                 </ul>
@@ -56,8 +60,7 @@
                     Ingredients
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="ingredientsDropdown">
-                    <li><a class="dropdown-item link_color" href="{% url 'index ingredients page' %}">All
-                        Ingredients</a></li>
+                    <li><a class="dropdown-item link_color" href="{% url 'show ingredients page' %}">Ingredients</a></li>
                     <li>
                         <a href="{% url 'create ingredient page' %}" class="dropdown-item link_color">Add Ingredient</a>
                     </li>
@@ -72,7 +75,7 @@
                     <li><a class="dropdown-item link_color" href="{% url 'create shopping list page' %}">Create a
                         shopping list</a>
                     </li>
-                    <li><a class="dropdown-item link_color" href="{% url 'show shopping lists page' %}">All Shopping
+                    <li><a class="dropdown-item link_color" href="{% url 'show shopping lists page' %}">Shopping
                         Lists</a></li>
                 </ul>
             </li>
@@ -84,7 +87,7 @@
                 <ul class="dropdown-menu" aria-labelledby="eatingPlansDropdown">
                     <li><a class="dropdown-item link_color" href="{% url 'create eating plan page' %}">Create a plan</a>
                     </li>
-                    <li><a class="dropdown-item link_color" href="{% url 'show eating plans page' %}">All Eating
+                    <li><a class="dropdown-item link_color" href="{% url 'show eating plans page' %}">Eating
                         Plans</a></li>
                 </ul>
             </li>
