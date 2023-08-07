@@ -12,12 +12,13 @@ function resetSelect(target) {
     var quantity = parent[2].children[1]
     var measurements = parent[3].children[1]
     var element = attributes[ingredient.value];
+    var deletecheckbox = parent[5].children[1]
 
-
+    console.log(deletecheckbox);
     $(ingredient).prop("selectedIndex", 0)
     $(quantity).val('')
     $(measurements).prop("selectedIndex", 0)
-
+    $(deletecheckbox).prop('checked', true);
     $(target).parent().fadeOut()
     calculate()
 }

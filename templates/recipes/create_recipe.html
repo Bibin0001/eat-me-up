@@ -5,9 +5,18 @@
 
 
     <style>
-        label[for^="id_form-0-id"] {
+        label[for^="id_form-"][for$="-id"] {
             display: none;
         }
+
+        label[for^="id_form-"][for$="-DELETE"] {
+            display: none;
+        }
+
+        input[type="checkbox"][name^="form-"][name$="-DELETE"] {
+            display: none;
+        }
+
     </style>
     <!-- create_recipe.html -->
     <h1 class="header_color mt-5 mb-4">Create a recipe</h1>
@@ -80,7 +89,12 @@
 
             addButton.click(function () {
 
-                $("[data-selset]:hidden:first").show();
+                {#$("[data-selset]:hidden:first").show();#}
+                var form = $("[data-selset]:hidden:first");
+
+                form.find('input[type="checkbox"]').prop('checked', false);
+
+                form.show()
 
             });
 

@@ -13,11 +13,30 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.forms import formset_factory
 
 
+def manage_formset(formset, recipe):
+    for form in formset:
+        ingredient_name = form.cleaned_data.get('ingredient')
+        if ingredient_name:
+            ingredient_quantity = form.cleaned_data.get('quantity')
+            ingredient_measurment = form.cleaned_data.get('measurements')
+            print(ingredient_quantity)
+            RecipeIngredient.objects.create(
+                recipe=recipe,
+                ingredient=ingredient_name,
+                quantity=ingredient_quantity,
+                measurements=ingredient_measurment
+            )
+
+    return True
+
+
 @login_required
 def create_recipe(request):
     RecipeIngredientFormSet = modelformset_factory(form=RecipeIngredientForm, extra=30,
                                                    formset=RecipeIngredientFormUserSetUp,
                                                    model=RecipeIngredient,
+                                                   can_delete=True,
+                                                   can_delete_extra=True
                                                    )
 
     if request.method == 'POST':
@@ -31,20 +50,8 @@ def create_recipe(request):
             recipe.user = request.user
             recipe.save()
 
-            for form in formset:
-                ingredient_name = form.cleaned_data.get('ingredient')
-                if ingredient_name:
-                    ingredient_quantity = form.cleaned_data.get('quantity')
-                    ingredient_measurment = form.cleaned_data.get('measurements')
-                    print(ingredient_quantity)
-                    RecipeIngredient.objects.create(
-                        recipe=recipe,
-                        ingredient=ingredient_name,
-                        quantity=ingredient_quantity,
-                        measurements=ingredient_measurment
-                    )
-
-            recipe.calculate_macros()
+            if manage_formset(formset, recipe):
+                recipe.calculate_macros()
             return redirect('details recipe page', pk=recipe.pk)
 
     else:
@@ -82,23 +89,9 @@ def edit_recipe(request, pk):
                 for ingredient in recipe.recipeingredient_set.all():
                     ingredient.delete()
 
-                for form in formset:
-                    ingredient_name = form.cleaned_data.get('ingredient')
-                    if ingredient_name:
-                        ingredient_quantity = form.cleaned_data.get('quantity')
-                        ingredient_measurment = form.cleaned_data.get('measurements')
-                        print(ingredient_quantity)
-                        RecipeIngredient.objects.create(
-                            recipe=recipe,
-                            ingredient=ingredient_name,
-                            quantity=ingredient_quantity,
-                            measurements=ingredient_measurment
-                        )
-
-            recipe.calculate_macros()
+                if manage_formset(formset, recipe):
+                    recipe.calculate_macros()
             return redirect('details recipe page', pk=recipe.pk)
-        else:
-            print(formset.errors)
 
 
     else:

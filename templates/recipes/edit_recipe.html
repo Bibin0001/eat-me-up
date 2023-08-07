@@ -1,12 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block main_content %}
+
     <style>
-        label[for^="id_ingredient-0-id"] {
+        label[for^="id_form-"][for$="-id"] {
             display: none;
         }
-    </style>
 
+        label[for^="id_form-"][for$="-DELETE"] {
+            display: none;
+        }
+
+        input[type="checkbox"][name^="form-"][name$="-DELETE"] {
+            display: none;
+        }
+
+    </style>
     <h1>Edit recipe</h1>
     <form id="recipe-form" method="POST" class="text-center custom-input">
         {% csrf_token %}

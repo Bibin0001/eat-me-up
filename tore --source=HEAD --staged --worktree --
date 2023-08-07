@@ -36,3 +36,17 @@
 [33m5996f25[m HEAD@{35}: commit: Testing
 [33mbc7f3b3[m HEAD@{36}: Branch: renamed refs/heads/main to refs/heads/main
 [33mbc7f3b3[m HEAD@{38}: commit: first commit
+[33m5807554[m HEAD@{39}: Branch: renamed refs/heads/main to refs/heads/main
+[33m5807554[m HEAD@{41}: commit: first commit
+[33m0f09f42[m HEAD@{42}: Branch: renamed refs/heads/main to refs/heads/main
+[33m0f09f42[m HEAD@{44}: commit: first commit
+[33meb5ab11[m HEAD@{45}: Branch: renamed refs/heads/master to refs/heads/main
+[33meb5ab11[m HEAD@{47}: commit: first commit
+[33maa1b7bb[m HEAD@{48}: commit: Added a README
+[33m5c40190[m HEAD@{49}: commit: Made the shopping lists
+[33mc00f2d2[m HEAD@{50}: commit: Users can now share recipes and saved the recipe and their ingredients
+[33m36c5914[m HEAD@{51}: commit: Made the edited recipe to be save
+[33m1fdec54[m HEAD@{52}: commit: Cleaned up the code and made some new things
+[33m08ecc97[m HEAD@{53}: commit: fix on recipes creation form
+[33m6c0c179[m HEAD@{54}: commit: Made the form for creating a recipe
+[33m87908a3[m HEAD@{55}: commit (initial): First commit
