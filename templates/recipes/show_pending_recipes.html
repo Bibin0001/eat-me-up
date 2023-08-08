@@ -1,8 +1,14 @@
 {% extends 'base.html' %}
 {% block main_content %}
-
+    {% if recipes %}
+    <h2 class="mt-3">Recipes waiting for approval</h2>
     {% for recipe in recipes %}
-        <h2>{{ recipe.title }}</h2>
-        <a href="{% url 'approve pending recipe page' pk=recipe.pk %}">Look Recipe!</a>
+        <a href="{% url 'approve pending recipe page' pk=recipe.pk %}">
+
+            <p class="header_color mb-3">{{ recipe.title }}</p>
+        </a>
     {% endfor %}
+    {% else %}
+    <h1 class="mt-5">No recipes waiting for approval</h1>
+    {% endif %}
 {% endblock %}

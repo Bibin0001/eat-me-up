@@ -4,8 +4,8 @@
     <div class="col-md-6 text-center">
         <h2 class="header_color mb-5">Are you sure you want to log out?</h2>
         <form action="{% url 'log out page' %}" method="POST">
-            <button class="button mb-3">Log Out</button>
-            <a href="{% url 'home page' %}" class="button" style="color: #eceff4">Go Back</a>
+            <button class="delete-button mb-3">Log Out</button>
+            <a href="{% url 'home page' %}" class="button ms-4" style="color: #eceff4">Go Back</a>
             {% csrf_token %}
         </form>
     </div>

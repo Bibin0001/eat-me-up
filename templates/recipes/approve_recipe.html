@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-    <h2>Recipe {{ recipe.title }}</h2>
-    <p>Instructions: {{ recipe.instruction }}</p>
+    <h1 class="mt-5">{{ recipe.title }}</h1>
+    {% if recipe.instruction %}
+    <p class="mb-3">Instructions: {{ recipe.instruction }}</p>
+    {% else  %}
+    <p class="mb-3">No instructions</p>
+    {% endif %}
 
     <h3>Ingredients: </h3>
     {% for ingredient in ingredients %}
@@ -18,8 +22,8 @@
     {% endfor %}
 
     <form method="POST">
-        <input type="submit" name="approve" value="Approve Recipe">
-        <input type="submit" name="reject" value="Discard Recipe">
+        <input type="submit" name="approve" value="Approve Recipe" class="button mt-4">
+        <input type="submit" name="reject" value="Discard Recipe" class="delete-button ms-4">
         {% csrf_token %}
     </form>
 {% endblock %}

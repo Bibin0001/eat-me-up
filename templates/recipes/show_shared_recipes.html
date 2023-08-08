@@ -1,11 +1,15 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
+
+    <h1>Shared recipes</h1>
     {% for recipe in recipes %}
 
         <div>
-            <p>Recipe name: {{ recipe.title }}</p>
-            <a href="{% url 'details shared recipe page' pk=recipe.pk %}">Recipe Details!</a>
+            <a href="{% url 'details shared recipe page' pk=recipe.pk %}">
+
+                <p class="header_color mb-2">{{ recipe.title }}</p>
+            </a>
         </div>
 
     {% endfor %}

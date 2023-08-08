@@ -4,6 +4,7 @@
 
     {% if recipes %}
         <h1 class="mb-4 mt-5">Your recipes</h1>
+
         {% for recipe in recipes %}
 
             <div>
@@ -17,7 +18,7 @@
     {% else %}
         <h1>You don't have any recipes</h1>
         <a href="{% url 'create recipe page' %}">
-            <button>Create recipe</button>
+            <button class="button">Create recipe</button>
         </a>
 
     {% endif %}

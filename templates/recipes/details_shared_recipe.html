@@ -1,25 +1,30 @@
 {% extends 'base.html' %}
 
 {% block main_content %}
-    <div>
+    <div class="text-center">
 
-        <h1>{{ recipe.title }}</h1>
-        <p>{{ recipe.instruction }}</p>
+        <h1 class="mt-5 mb-4">{{ recipe.title }}</h1>
+        {% if recipe.instruction %}
+            <h2>Instructions</h2>
+            <p>{{ recipe.instruction }}</p>
+        {% else %}
+            <p>No instructions</p>
+        {% endif %}
 
-        <h2>Ingredients: </h2>
+        <h2 class="mt-5 mb-3">Ingredients: </h2>
         {% for ingredient in ingredients %}
             <div>
                 {% if ingredient.measurements == "1000" %}
 
-                    <p>{{ ingredient.ingredient.name }} {{ ingredient.quantity }} kg</p>
+                    <p class="mb-2">{{ ingredient.ingredient.name }} {{ ingredient.quantity }} kg</p>
                 {% else %}
-                    <p>{{ ingredient.ingredient.name }} {{ ingredient.quantity }} grams</p>
+                    <p class="mb-2">{{ ingredient.ingredient.name }} {{ ingredient.quantity }} grams</p>
                 {% endif %}
             </div>
 
         {% endfor %}
 
-        <h2>Recipe macros:</h2>
+        <h2 class="mt-4 mb-3">Recipe macros:</h2>
         <p>Calories: {{ recipe.calories }}</p>
         <p>Proteins: {{ recipe.proteins }}</p>
         <p>Carbs: {{ recipe.carbs }}</p>
@@ -27,7 +32,7 @@
     </div>
 
     <form method="POST">
-        <button>Save recipe!</button>
+        <button class="button mt-4">Save recipe!</button>
         {% csrf_token %}
     </form>
 {% endblock %}
