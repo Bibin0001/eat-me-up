@@ -1,22 +1,26 @@
 version: '3.7'
 
 services:
-  web:
+  app:
     build:
       context: .
-    image: eat_me
-    command: python3 manage.py runserver 0.0.0.0:8000
-    ports:
-      - "8000:8000"
 
-    environment:
-      DEBUG: "True"
-      SECRET_KEY: "django-insecure-2%&dj3a6*h$p*%j=*k4n-@r&yp-1nqru404ja2ub$j&ngl5jrm"
-      DATABASE_URL: "postgres://bobo:bobo@postgres:5432/eat_me_db"
-    depends_on:
-      - postgres
     volumes:
-      - ./static:/eat_me_next_tri/static
+      - static_data:/vol/web
+    environment:
+      - SECRET_KEY=django-insecure-2%&dj3a6*h$p*%j=*k4n-@r&yp-1nqru404ja2ub$j&ngl5jrm
+      - ALLOWED_HOSTS=127.0.0.1,localhost
+
+  proxy:
+    build:
+      context: ./proxy
+
+    volumes:
+      - static_data:/vol/static
+    ports:
+      - "8080:8080"
+    depends_on:
+      - app
 
   postgres:
     image: postgres
@@ -31,4 +35,7 @@ services:
 
     volumes:
       - ./postgresql:/var/lib/postgresql/data
+
+volumes:
+  static_data:
 

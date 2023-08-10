@@ -20,13 +20,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 
-SECRET_KEY = 'django-insecure-2%&dj3a6*h$p*%j=*k4n-@r&yp-1nqru404ja2ub$j&ngl5jrm'
+
+SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(int(os.environ.get('DEBUG', 0)))
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['172.18.0.4', 'localhost', '127.0.0.1']
+# ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS')
+# if ALLOWED_HOSTS_ENV:
+#     ALLOWED_HOSTS.extend(ALLOWED_HOSTS_ENV.split(','))
 
 # Application definition
 
@@ -81,24 +84,23 @@ WSGI_APPLICATION = 'eat_me_next_tri.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "mydatabase",
-    }
-}
-
 # DATABASES = {
 #     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "eat_me_db",
-#         "USER": "bobo",
-#         "PASSWORD": "bobo",
-#         "HOST": "postgres",
-#         "PORT": "5432",
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": "mydatabase",
 #     }
 # }
 
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "eat_me_db",
+        "USER": "bobo",
+        "PASSWORD": "bobo",
+        "HOST": "postgres",
+        "PORT": "5432",
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -132,29 +134,16 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-# # STATICFILES_DIRS = [BASE_DIR / 'static']
-# # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = (BASE_DIR / 'static')
+STATIC_URL = '/static/static/'
 # STATICFILES_DIRS = [BASE_DIR / 'static']
-# MEDIA_URL = 'media/'
-# MEDIA_ROOT = (BASE_DIR / 'media')
+# STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+# STATIC_ROOT = (BASE_DIR / 'static')
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
-#
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = '/vol/web/static'
 
-# STATIC_URL = '/static/'
-#
-# # Add these new lines
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'static'),
-# )
-#
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
+MEDIA_ROOT = (BASE_DIR / 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
