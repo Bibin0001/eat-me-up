@@ -1,12 +1,15 @@
 {% extends 'base.html' %}
 {% block main_content %}
+    <div class="text-center">
 
-    <h1>Create your ingredient!</h1>
+        <h1 class="mt-5 mb-4">Create your ingredient!</h1>
 
-    <form action="{% url 'create ingredient page'%}" method="POST">
-        {{ form.as_p }}
+        <form action="{% url 'create ingredient page' %}" method="POST">
+            {{ form.as_p }}
 
-        <button>Create Ingredient!</button>
-        {% csrf_token %}
-    </form>
-{% endblock  %}
+            <button class="button mt-4">Create Ingredient!</button>
+            {% csrf_token %}
+        </form>
+    </div>
+
+{% endblock %}
