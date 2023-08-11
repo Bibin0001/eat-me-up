@@ -1,16 +1,20 @@
 # Eat me Up
 
-This is a website for manaing your macros and recipes. 
+This is an app  for manaing your macros and recipes. 
 
-Some functionalities: 
-# Create Recipes
-# Make shopping lists for chosen recipes
-# Share your recipes
+You need Docker to run this application.
 
 
+# Some functionalities: 
+Create Recipes
+Make shopping lists for chosen recipes
+Share your recipes
 
+# To run the project
+run this command: sudo docker-compose -f docker-compose-deploy.yml up --build
 
-The website is still in development !
+# To add a superuser:
+sudo docker exec -it eat_me_next_tri_app_1 python manage.py createsuperuser
 
 
 
