@@ -9,7 +9,7 @@
 
 <h3>2. Navigate to the app folder</h3>
     
-    cd eat_me_next_tri
+    cd eat-me-up
 
 <h3>3. Run the docker-compose files</h3>
 
