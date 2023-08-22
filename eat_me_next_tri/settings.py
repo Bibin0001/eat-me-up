@@ -26,7 +26,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'changeme')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '0.0.0.0']
 # ALLOWED_HOSTS_ENV = os.environ.get('ALLOWED_HOSTS')
 # if ALLOWED_HOSTS_ENV:
 #     ALLOWED_HOSTS.extend(ALLOWED_HOSTS_ENV.split(','))
@@ -97,7 +97,7 @@ DATABASES = {
         "NAME": "eat_me_db",
         "USER": "bobo",
         "PASSWORD": "bobo",
-        "HOST": "127.0.0.1",
+        "HOST": "postgres",
         "PORT": "5432",
     }
 }
