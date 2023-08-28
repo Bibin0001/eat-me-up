@@ -2,14 +2,6 @@
 
 
 
-## Table of Contents
-- [Introduction](#introduction)
-- [Features](#features)
-- [Demo](#demo)
-- [Technologies Used](#technologies-used)
-
-
-## Introduction
 
 **Eat Me** is a web application designed to help you manage your macros and meals with ease. Whether you're tracking your daily nutrition, planning meals, or simply curious about your dietary habits, Eat Me has you covered.
 
